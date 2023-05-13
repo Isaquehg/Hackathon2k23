@@ -71,9 +71,17 @@ public class TrafficModel {
         return protocolDataList;
     }
 
-    private DataModel convertDocumentToProtocolData(Document document) {
-        DataModel datamodel;
-        document.get()
+    private ProtocolModel convertDocumentToProtocolData(Document document) {
+        ProtocolModel protocolModel = new ProtocolModel(document);
+        return protocolModel;
+    }
+    private AppModel convertDocumentToAppData(Document document) {
+        AppModel appModel = new AppModel(document);
+        return appModel;
+    }
+    private HostModel convertDocumentToHostData(Document document) {
+        HostModel hostModel = new HostModel(document);
+        return hostModel;
     }
 
 
