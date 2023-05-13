@@ -1,13 +1,18 @@
 package model;
 
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import org.bson.Document;
-import org.bson.Bson
+import org.bson.conversions.Bson;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TrafficModel {
@@ -47,10 +52,28 @@ public class TrafficModel {
     }
 
     // Function to get data usage from Protocol in a specific period
-    public List<DataModel> getProtocolDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+    public List<ProtocolModel> getProtocolDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        MongoCollection<Document> collection = database.getCollection("protocoltraffic");
 
-        // Exemplo de implementação:
-        List<DataModel> protocolDataList = new ArrayList<>();
+        // Defining query filter
+        Bson filter = Filters.and(
+                Filters.gte("timestamp", startTime),
+                Filters.lte("timestamp", endTime)
+        );
+
+        // Query
+        Flux<Document> result = Flux.from(collection.find(filter));
+
+        // Converting query to objects List
+        List<ProtocolModel> protocolDataList = result.map(this::convertDocumentToProtocolData)
+                .collectList()
+                .block();
+
+        return protocolDataList;
+    }
+
+    public List<AppModel> getAppDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        List<AppModel> appDataList = new ArrayList<>();
 
         // Consultar os documentos no MongoDB que correspondem ao período de tempo especificado
         // Utilize os métodos adequados do driver do MongoDB para executar a consulta
@@ -64,13 +87,35 @@ public class TrafficModel {
 
         // Iterar sobre os documentos retornados e converter em objetos ProtocolData
         for (Document document : result) {
-            DataModel protocolData = convertDocumentToProtocolData(document);
-            protocolDataList.add(protocolData);
+            AppModel appData = convertDocumentToAppData(document);
+            appDataList.add(appData);
         }
 
-        return protocolDataList;
+        return appDataList;
     }
 
+    public List<HostModel> getHostDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        List<HostModel> hostDataList = new ArrayList<>();
+
+        MongoCollection<Document> collection = database.getCollection("protocoltraffic");
+        Bson filter = Filters.and(
+                Filters.gte("timestamp", startTime),
+                Filters.lte("timestamp", endTime)
+        );
+        FindIterable<Document> result = collection.find(filter);
+
+        // Iterar sobre os documentos retornados e converter em objetos ProtocolData
+        for (Document document : result) {
+            HostModel hostData = convertDocumentToHostData(document);
+            hostDataList.add(hostData);
+        }
+
+        return hostDataList;
+    }
+
+
+
+    // Conversions from BSON to Model object
     private ProtocolModel convertDocumentToProtocolData(Document document) {
         ProtocolModel protocolModel = new ProtocolModel(document);
         return protocolModel;
@@ -83,7 +128,6 @@ public class TrafficModel {
         HostModel hostModel = new HostModel(document);
         return hostModel;
     }
-
 
     // Close MongoDB connection
     public void close() {
