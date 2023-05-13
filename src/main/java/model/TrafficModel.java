@@ -73,42 +73,41 @@ public class TrafficModel {
     }
 
     public List<AppModel> getAppDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
-        List<AppModel> appDataList = new ArrayList<>();
+        MongoCollection<Document> collection = database.getCollection("apptraffic");
 
-        // Consultar os documentos no MongoDB que correspondem ao período de tempo especificado
-        // Utilize os métodos adequados do driver do MongoDB para executar a consulta
-        // Aqui está um exemplo simplificado de como fazer a consulta:
-        MongoCollection<Document> collection = database.getCollection("protocoltraffic");
+        // Defining query filter
         Bson filter = Filters.and(
                 Filters.gte("timestamp", startTime),
                 Filters.lte("timestamp", endTime)
         );
-        FindIterable<Document> result = collection.find(filter);
 
-        // Iterar sobre os documentos retornados e converter em objetos ProtocolData
-        for (Document document : result) {
-            AppModel appData = convertDocumentToAppData(document);
-            appDataList.add(appData);
-        }
+        // Query
+        Flux<Document> result = Flux.from(collection.find(filter));
+
+        // Converting query to objects List
+        List<AppModel> appDataList = result.map(this::convertDocumentToAppData)
+                .collectList()
+                .block();
 
         return appDataList;
     }
 
     public List<HostModel> getHostDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
-        List<HostModel> hostDataList = new ArrayList<>();
+        MongoCollection<Document> collection = database.getCollection("hosttraffic");
 
-        MongoCollection<Document> collection = database.getCollection("protocoltraffic");
+        // Defining query filter
         Bson filter = Filters.and(
                 Filters.gte("timestamp", startTime),
                 Filters.lte("timestamp", endTime)
         );
-        FindIterable<Document> result = collection.find(filter);
 
-        // Iterar sobre os documentos retornados e converter em objetos ProtocolData
-        for (Document document : result) {
-            HostModel hostData = convertDocumentToHostData(document);
-            hostDataList.add(hostData);
-        }
+        // Query
+        Flux<Document> result = Flux.from(collection.find(filter));
+
+        // Converting query to objects List
+        List<HostModel> hostDataList = result.map(this::convertDocumentToHostData)
+                .collectList()
+                .block();
 
         return hostDataList;
     }
