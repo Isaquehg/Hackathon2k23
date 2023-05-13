@@ -1,9 +1,9 @@
 package model;
 
 import com.mongodb.ConnectionString;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoDatabase;
+import com.mongodb.reactivestreams.client.MongoClients;
 
 public class MongoDBConnection {
     private static final String DATABASE_NAME = "mydatabase";
