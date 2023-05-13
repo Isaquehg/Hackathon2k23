@@ -6,17 +6,17 @@ import com.mongodb.reactivestreams.client.MongoDatabase;
 import com.mongodb.reactivestreams.client.MongoClients;
 
 public class MongoDBConnection {
-    private static final String DATABASE_NAME = "mydatabase";
+    private static final String DATABASE_NAME = "FloWatcher";
 
     private MongoClient mongoClient;
     private MongoDatabase database;
 
     public MongoDBConnection() {
-        // Configuração da conexão com o MongoDB
+        // Setting up MongoDB
         ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017");
         this.mongoClient = MongoClients.create(connectionString);
 
-        // Obtenção de uma referência ao banco de dados
+        // Getting reference
         this.database = mongoClient.getDatabase(DATABASE_NAME);
     }
 

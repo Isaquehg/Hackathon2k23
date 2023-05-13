@@ -1,39 +1,46 @@
 package model;
 
+import com.mongodb.reactivestreams.client.MongoCollection;
+import com.mongodb.reactivestreams.client.MongoDatabase;
+import org.bson.Document;
+
 public class TrafficModel {
-    private Thread appTrafficThread;
-    private Thread hostTrafficThread;
-    private Thread protocolTrafficThread;
+    private MongoDBConnection dbConnection;
+    private MongoCollection<Document> appTrafficCollection;
+    private MongoCollection<Document> hostTrafficCollection;
+    private MongoCollection<Document> protocolTrafficCollection;
 
     public TrafficModel() {
-        // Inicializar as threads
-        appTrafficThread = new Thread(() -> {
-            // Lógica para capturar o tráfego de aplicativos
-            // Atualizar os dados de tráfego relacionados aos aplicativos
-        });
+        // Instantiating MongoDB and connecting to it
+        this.dbConnection = new MongoDBConnection();
+        MongoDatabase database = dbConnection.getDatabase();
 
-        hostTrafficThread = new Thread(() -> {
-            // Lógica para capturar o tráfego por host
-            // Atualizar os dados de tráfego relacionados aos hosts
-        });
-
-        protocolTrafficThread = new Thread(() -> {
-            // Lógica para capturar o tráfego por protocolo
-            // Atualizar os dados de tráfego relacionados aos protocolos
-        });
+        // Getting the collections to store
+        this.appTrafficCollection = database.getCollection("apptraffic");
+        this.hostTrafficCollection = database.getCollection("hosttraffic");
+        this.protocolTrafficCollection = database.getCollection("protocoltraffic");
     }
 
-    public void startThreads() {
-        // Iniciar as threads
-        appTrafficThread.start();
-        hostTrafficThread.start();
-        protocolTrafficThread.start();
+    // Update app data traffic
+    public void updateAppTraffic(String data) {
+        Document document = Document.parse(data);
+        appTrafficCollection.insertOne(document);
     }
 
-    public void stopThreads() {
-        // Parar as threads
-        appTrafficThread.interrupt();
-        hostTrafficThread.interrupt();
-        protocolTrafficThread.interrupt();
+    // Update host data traffic
+    public void updateHostTraffic(String data) {
+        Document document = Document.parse(data);
+        hostTrafficCollection.insertOne(document);
+    }
+
+    // Update protocol data traffic
+    public void updateProtocolTraffic(String data) {
+        Document document = Document.parse(data);
+        protocolTrafficCollection.insertOne(document);
+    }
+
+    // Close MongoDB connection
+    public void close() {
+        dbConnection.close();
     }
 }
