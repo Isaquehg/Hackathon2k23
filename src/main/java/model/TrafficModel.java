@@ -1,19 +1,26 @@
 package model;
 
+import com.mongodb.client.model.Filters;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.Bson
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrafficModel {
     private MongoDBConnection dbConnection;
     private MongoCollection<Document> appTrafficCollection;
     private MongoCollection<Document> hostTrafficCollection;
     private MongoCollection<Document> protocolTrafficCollection;
+    private MongoDatabase database;
 
     public TrafficModel() {
         // Instantiating MongoDB and connecting to it
         this.dbConnection = new MongoDBConnection();
-        MongoDatabase database = dbConnection.getDatabase();
+        this.database = dbConnection.getDatabase();
 
         // Getting the collections to store
         this.appTrafficCollection = database.getCollection("apptraffic");
@@ -38,6 +45,37 @@ public class TrafficModel {
         Document document = Document.parse(data);
         protocolTrafficCollection.insertOne(document);
     }
+
+    // Function to get data usage from Protocol in a specific period
+    public List<DataModel> getProtocolDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+
+        // Exemplo de implementação:
+        List<DataModel> protocolDataList = new ArrayList<>();
+
+        // Consultar os documentos no MongoDB que correspondem ao período de tempo especificado
+        // Utilize os métodos adequados do driver do MongoDB para executar a consulta
+        // Aqui está um exemplo simplificado de como fazer a consulta:
+        MongoCollection<Document> collection = database.getCollection("protocoltraffic");
+        Bson filter = Filters.and(
+                Filters.gte("timestamp", startTime),
+                Filters.lte("timestamp", endTime)
+        );
+        FindIterable<Document> result = collection.find(filter);
+
+        // Iterar sobre os documentos retornados e converter em objetos ProtocolData
+        for (Document document : result) {
+            DataModel protocolData = convertDocumentToProtocolData(document);
+            protocolDataList.add(protocolData);
+        }
+
+        return protocolDataList;
+    }
+
+    private DataModel convertDocumentToProtocolData(Document document) {
+        DataModel datamodel;
+        document.get()
+    }
+
 
     // Close MongoDB connection
     public void close() {

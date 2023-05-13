@@ -1,5 +1,6 @@
 package view;
 
+// Class to provide real-time usage for UI
 public class TrafficUI implements TrafficUIListener {
 
     @Override
