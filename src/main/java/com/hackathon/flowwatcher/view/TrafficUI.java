@@ -1,4 +1,4 @@
-package view;
+package com.hackathon.flowwatcher.view;
 
 // Class to provide real-time usage for UI
 public class TrafficUI implements TrafficUIListener {

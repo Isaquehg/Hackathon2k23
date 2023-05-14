@@ -1,4 +1,4 @@
-package model;
+package com.hackathon.flowwatcher.model;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.reactivestreams.client.MongoClient;

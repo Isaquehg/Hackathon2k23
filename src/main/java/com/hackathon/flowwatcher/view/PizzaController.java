@@ -1,4 +1,4 @@
-package com.hackathon.flowwatcher;
+package com.hackathon.flowwatcher.view;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -10,7 +10,7 @@ import javafx.scene.chart.PieChart;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class PizzaController implements Initializable {
 
     @FXML
     private PieChart pieChart;

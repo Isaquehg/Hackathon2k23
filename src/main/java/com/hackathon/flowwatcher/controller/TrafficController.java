@@ -1,7 +1,7 @@
-package controller;
+package com.hackathon.flowwatcher.controller;
 
-import model.TrafficModel;
-import view.TrafficUIListener;
+import com.hackathon.flowwatcher.model.TrafficModel;
+import com.hackathon.flowwatcher.view.TrafficUIListener;
 
 import java.io.IOException;
 import java.io.InputStream;

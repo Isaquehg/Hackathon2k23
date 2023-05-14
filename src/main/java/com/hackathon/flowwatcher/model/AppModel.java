@@ -1,11 +1,16 @@
-package model;
+package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bson.Document;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class HostModel {
-    Document document;
+// Class for generating objects with data usage
+public class AppModel {
+    private Document document;
+
+    // Data usage details
+    @JsonProperty("name")
+    private String source;
     @JsonProperty("total")
     private double total;
     @JsonProperty("download")
@@ -13,15 +18,18 @@ public class HostModel {
     @JsonProperty("upload")
     private double upload;
 
-    public HostModel(Document document){
+    // Constructor for Model usage when converting a BSON to show history
+    public AppModel(Document document){
         this.document = document;
     }
-    public HostModel(String json){
+
+    // Constructor used when receiving real-time data
+    public AppModel(String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            HostModel dataModel = objectMapper.readValue(json, HostModel.class);
+            AppModel dataModel = objectMapper.readValue(json, AppModel.class);
 
-            System.out.println("Host:");
+            System.out.println("App: " + dataModel.getSource());
             System.out.println("Total: " + dataModel.getTotal());
             System.out.println("Download: " + dataModel.getDownload());
             System.out.println("Upload: " + dataModel.getUpload());
@@ -32,9 +40,18 @@ public class HostModel {
 
     // Convert from BSON
     public void convertBSON(){
+        source = (String) this.document.get("name");
         total = (double) this.document.get("total");
         download = (double) this.document.get("download");
         upload = (double) this.document.get("upload");
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public double getTotal() {

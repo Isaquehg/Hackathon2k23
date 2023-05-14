@@ -1,4 +1,4 @@
-package view;
+package com.hackathon.flowwatcher.view;
 
 // Interface for tracking and sending real-time data usage to the UI
 public interface TrafficUIListener {

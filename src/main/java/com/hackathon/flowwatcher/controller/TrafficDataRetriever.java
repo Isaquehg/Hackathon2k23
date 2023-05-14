@@ -1,11 +1,10 @@
-package controller;
+package com.hackathon.flowwatcher.controller;
 
-import model.AppModel;
-import model.HostModel;
-import model.ProtocolModel;
-import model.TrafficModel;
+import com.hackathon.flowwatcher.model.AppModel;
+import com.hackathon.flowwatcher.model.HostModel;
+import com.hackathon.flowwatcher.model.ProtocolModel;
+import com.hackathon.flowwatcher.model.TrafficModel;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficDataRetriever {
