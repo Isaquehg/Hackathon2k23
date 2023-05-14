@@ -1,4 +1,4 @@
-package com.hackathon.flowwatcher.hackathon2k23frontend;
+package com.hackathon.flowwatcher;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

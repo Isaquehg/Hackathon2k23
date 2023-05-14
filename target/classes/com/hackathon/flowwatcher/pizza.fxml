@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:controller="com.hackathon.flowwatcher.hackathon2k23frontend.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="com.hackathon.flowwatcher.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <PieChart fx:id="pieChart" layoutX="4.0" layoutY="87.0" prefHeight="306.0" prefWidth="591.0" title="APLICATIVOS USADOS" />
       <MenuButton layoutX="14.0" layoutY="52.0" mnemonicParsing="false" text="App">
