@@ -6,7 +6,7 @@ import com.hackathon.flowwatcher.model.ProtocolModel;
 
 // Interface for tracking and sending real-time data usage to the UI from Threads
 public interface TrafficUIListener {
-    void onAppTrafficUpdated(String data);
-    void onProtocolTrafficUpdated(String data);
-    void onHostTrafficUpdated(String data);
+    void onAppTrafficUpdated(AppModel appModel);
+    void onProtocolTrafficUpdated(ProtocolModel protocolModel);
+    void onHostTrafficUpdated(HostModel hostModel);
 }
