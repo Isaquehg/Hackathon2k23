@@ -37,6 +37,7 @@ public class HostModel {
         upload = (double) this.document.get("upload");
     }
 
+    // Getters & Setters
     public double getTotal() {
         return total;
     }

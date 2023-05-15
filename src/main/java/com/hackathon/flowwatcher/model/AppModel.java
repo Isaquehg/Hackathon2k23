@@ -46,6 +46,7 @@ public class AppModel {
         upload = (double) this.document.get("upload");
     }
 
+    // Getters & Setters
     public String getSource() {
         return source;
     }

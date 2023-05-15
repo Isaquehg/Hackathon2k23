@@ -1,21 +1,21 @@
 package com.hackathon.flowwatcher.view;
 
 // Class to provide real-time usage for UI
-public class TrafficUI implements TrafficUIListener {
+public class RealTimeTrafficUI implements TrafficUIListener {
 
     @Override
     public void onAppTrafficUpdated(String data) {
-        // Atualizar a UI com os dados de tráfego de aplicativos
+        // Update UI from App data usage thread
     }
 
     @Override
     public void onProtocolTrafficUpdated(String data) {
-        // Atualizar a UI com os dados de tráfego de protocolos
+        // Update UI from Protocol data usage thread
     }
 
     @Override
     public void onHostTrafficUpdated(String data) {
-        // Atualizar a UI com os dados de tráfego de hosts
+        // Update UI from Host data usage thread
     }
 }
 

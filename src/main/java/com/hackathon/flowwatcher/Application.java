@@ -18,7 +18,8 @@ public class Application extends javafx.application.Application {
         stage.setTitle("FloWatcher");
         stage.setScene(scene);
         stage.show();
-
+        // Ao iniciar a aplicação, lembrar de instanciar a classe startTrafficCapture() para inciar as 3 threads
+        // Podemos dividir a aplicação entre mostrar em tempo real e por período específico
     }
 
     public static void main(String[] args) {

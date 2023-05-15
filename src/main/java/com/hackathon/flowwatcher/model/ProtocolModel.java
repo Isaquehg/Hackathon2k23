@@ -62,6 +62,7 @@ public class ProtocolModel {
         return protocolModel;
     }
 
+    // Getters & Setters
     public String getTotal() {
         return total;
     }

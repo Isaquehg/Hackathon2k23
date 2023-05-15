@@ -107,8 +107,6 @@ public class TrafficModel {
         return hostDataList;
     }
 
-
-
     // Conversions from BSON to Model object
     private ProtocolModel convertDocumentToProtocolData(Document document) {
         ProtocolModel protocolModel = new ProtocolModel(document);

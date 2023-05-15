@@ -28,7 +28,7 @@ public class TrafficDataRetriever {
         return protocolModelList;
     }
 
-    // By Host
+    // Function to retrieve data by period from Hosts
     public List<HostModel> retrieveHostDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
         TrafficModel trafficModel = new TrafficModel();
         List<HostModel> hostModelList;
