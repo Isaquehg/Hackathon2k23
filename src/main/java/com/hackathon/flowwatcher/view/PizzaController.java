@@ -54,7 +54,7 @@ public class PizzaController implements Initializable {
     public void changeGraphic(javafx.scene.input.MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("column.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setScene(scene);
         stage.show();
     }
