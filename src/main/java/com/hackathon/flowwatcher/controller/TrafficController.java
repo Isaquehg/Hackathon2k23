@@ -1,5 +1,8 @@
 package com.hackathon.flowwatcher.controller;
 
+import com.hackathon.flowwatcher.model.AppModel;
+import com.hackathon.flowwatcher.model.HostModel;
+import com.hackathon.flowwatcher.model.ProtocolModel;
 import com.hackathon.flowwatcher.model.TrafficModel;
 import com.hackathon.flowwatcher.view.TrafficUIListener;
 
@@ -69,22 +72,28 @@ public class TrafficController {
                     if(socket.getPort() == 50000){
                         // Saving to DB
                         model.updateAppTraffic(data);
-                        //send data to UI for real-time monitoring
-                        uiListener.onAppTrafficUpdated(data);
+                        // Convert JSON to Object
+                        AppModel appModel = new AppModel(data);
+                        // Send data to UI for real-time monitoring
+                        uiListener.onAppTrafficUpdated(appModel);
                     }
                     // Protocol
                     else if (socket.getPort() == 50001) {
                         // Saving to DB
                         model.updateProtocolTraffic(data);
-                        //send data to UI for real-time monitoring
-                        uiListener.onProtocolTrafficUpdated(data);
+                        // Convert JSON to Object
+                        ProtocolModel protocolModel = new ProtocolModel(data);
+                        // Send data to UI for real-time monitoring
+                        uiListener.onProtocolTrafficUpdated(protocolModel);
                     }
                     //Host
                     else if (socket.getPort() == 50002) {
                         // Saving to DB
                         model.updateHostTraffic(data);
-                        //send data to UI for real-time monitoring
-                        uiListener.onHostTrafficUpdated(data);
+                        // Convert JSON to object
+                        HostModel hostModel = new HostModel(data);
+                        // Send data to UI for real-time monitoring
+                        uiListener.onHostTrafficUpdated(hostModel);
                     }
                 }
             } catch (IOException e) {

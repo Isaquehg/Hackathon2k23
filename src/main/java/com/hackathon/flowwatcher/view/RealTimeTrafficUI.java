@@ -8,22 +8,18 @@ import com.hackathon.flowwatcher.model.ProtocolModel;
 public class RealTimeTrafficUI implements TrafficUIListener {
 
     @Override
-    public void onAppTrafficUpdated(String data) {
+    public void onAppTrafficUpdated(AppModel appModel) {
         // Update UI from App data usage thread
-        AppModel appModel = new AppModel(data);
-        ColumnController columnController = new ColumnController();
-        columnController.appmodel = appModel;
     }
 
     @Override
-    public void onProtocolTrafficUpdated(String data) {
+    public void onProtocolTrafficUpdated(ProtocolModel protocolModel) {
         // Update UI from Protocol data usage thread
-        ProtocolModel protocolModel = new ProtocolModel(data);
     }
 
     @Override
-    public void onHostTrafficUpdated(String data) {
-        HostModel hostModel = new HostModel(data);
+    public void onHostTrafficUpdated(HostModel hostModel) {
+        // Update UI from Host data usage thread
     }
 }
 
