@@ -19,7 +19,7 @@ public class ColumnController {
     public void changeGraphic(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setScene(scene);
         stage.show();
     }
