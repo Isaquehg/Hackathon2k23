@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+// Class for retrieving real-time data traffic from sockets
 public class TrafficController {
     private TrafficModel model;
     private TrafficUIListener uiListener;
@@ -66,18 +67,21 @@ public class TrafficController {
                     // Selecting which source of data will deal with
                     // User
                     if(socket.getPort() == 50000){
+                        // Saving to DB
                         model.updateAppTraffic(data);
                         //send data to UI for real-time monitoring
                         uiListener.onAppTrafficUpdated(data);
                     }
                     // Protocol
                     else if (socket.getPort() == 50001) {
+                        // Saving to DB
                         model.updateProtocolTraffic(data);
                         //send data to UI for real-time monitoring
                         uiListener.onProtocolTrafficUpdated(data);
                     }
                     //Host
                     else if (socket.getPort() == 50002) {
+                        // Saving to DB
                         model.updateHostTraffic(data);
                         //send data to UI for real-time monitoring
                         uiListener.onHostTrafficUpdated(data);

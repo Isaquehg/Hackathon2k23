@@ -8,35 +8,32 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TrafficDataRetriever {
-    TrafficModel model = new TrafficModel();
 
-    public TrafficDataRetriever(TrafficModel model) {
-        this.model = model;
+    // Function to retrieve data by period from Apps
+    public List<AppModel> retrieveAppDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        // Data by App
+        TrafficModel trafficModel = new TrafficModel();
+        List<AppModel> appModelList;
+        appModelList = trafficModel.getAppDataByPeriod(startTime, endTime);
+
+        return appModelList;
     }
 
-    // Function to retrieve data by source, by period
-    public void retrieveDataByPeriod(LocalDateTime startTime, LocalDateTime endTime, int source) {
-        // Data by App
-        if(source == 0){
-            TrafficModel trafficModel = new TrafficModel();
-            List<AppModel> appModelList;
-            appModelList = trafficModel.getAppDataByPeriod(startTime, endTime);
-        }
-        // Data by Protocol
-        else if(source == 1){
-            TrafficModel trafficModel = new TrafficModel();
-            List<ProtocolModel> protocolModelList;
-            protocolModelList = trafficModel.getProtocolDataByPeriod(startTime, endTime);
-        }
-        // Data by Host
-        else if(source == 2){
-            TrafficModel trafficModel = new TrafficModel();
-            List<HostModel> hostModelList;
-            hostModelList = trafficModel.getHostDataByPeriod(startTime, endTime);
-        }
-        // All the data!
-        else{
+    // Function to retrieve data by period from Protocols
+    public List<ProtocolModel> retrieveProtocolDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        TrafficModel trafficModel = new TrafficModel();
+        List<ProtocolModel> protocolModelList;
+        protocolModelList = trafficModel.getProtocolDataByPeriod(startTime, endTime);
 
-        }
+        return protocolModelList;
+    }
+
+    // By Host
+    public List<HostModel> retrieveHostDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        TrafficModel trafficModel = new TrafficModel();
+        List<HostModel> hostModelList;
+        hostModelList = trafficModel.getHostDataByPeriod(startTime, endTime);
+
+        return hostModelList;
     }
 }

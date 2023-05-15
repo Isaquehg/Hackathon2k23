@@ -28,7 +28,7 @@ public class TrafficModel {
         this.protocolTrafficCollection = database.getCollection("protocoltraffic");
     }
 
-    // Update app data traffic
+    // Update app data traffic in database
     public void updateAppTraffic(String data) {
         Document document = Document.parse(data);
         appTrafficCollection.insertOne(document);
