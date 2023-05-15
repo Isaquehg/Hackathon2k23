@@ -20,46 +20,17 @@ public class ProtocolModel {
     public ProtocolModel(Document document){
         this.document = document;
     }
-    public ProtocolModel(String total, String download, String upload){
-        this.total = total;
-        this.download = download;
-        this.upload = upload;
-    }
-
-    public static Map<String, ProtocolModel> fromJson(String json) {
-        Map<String, ProtocolModel> protocolMap = new HashMap<>();
-
+    public ProtocolModel(String json){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(json);
+            ProtocolModel protocolModel = objectMapper.readValue(json, ProtocolModel.class);
 
-            // Iterate over the fields in the JSON object
-            for (JsonNode field : rootNode) {
-                String protocol = field.fieldNames().next(); // Get the protocol name
-                JsonNode protocolNode = field.get(protocol); // Get the protocol data
-
-                // Extract the data from the protocol node
-                String total = protocolNode.get("total").asText();
-                String download = protocolNode.get("download").asText();
-                String upload = protocolNode.get("upload").asText();
-
-                ProtocolModel protocolModel = new ProtocolModel(total, download, upload);
-                protocolMap.put(protocol, protocolModel);
-            }
+            System.out.println("Total: " + protocolModel.getTotal());
+            System.out.println("Download: " + protocolModel.getDownload());
+            System.out.println("Upload: " + protocolModel.getUpload());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return protocolMap;
-    }
-
-    // Convert from BSON
-    public ProtocolModel convertBSON(){
-        total = (String) this.document.get("total");
-        download = (String) this.document.get("download");
-        upload = (String) this.document.get("upload");
-        ProtocolModel protocolModel = new ProtocolModel(total, download, upload);
-        return protocolModel;
     }
 
     // Getters & Setters

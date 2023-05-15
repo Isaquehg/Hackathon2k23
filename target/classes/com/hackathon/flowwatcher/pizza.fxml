@@ -8,15 +8,16 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:controller="com.hackathon.flowwatcher.view.PizzaController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackathon.flowwatcher.view.PizzaController">
    <children>
       <PieChart fx:id="pieChart" layoutX="4.0" layoutY="87.0" prefHeight="306.0" prefWidth="591.0" title="APLICATIVOS USADOS" />
       <MenuButton layoutX="14.0" layoutY="52.0" mnemonicParsing="false" text="App">
         <items>
           <MenuItem mnemonicParsing="false" text="Host" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
+          <MenuItem mnemonicParsing="false" text="Protocolo" />
         </items>
       </MenuButton>
       <MenuButton layoutX="501.0" layoutY="52.0" mnemonicParsing="false" text="Exportar">
@@ -24,8 +25,11 @@
           <MenuItem mnemonicParsing="false" text="Como CSV" />
         </items>
       </MenuButton>
-      <RadioButton layoutX="302.0" layoutY="53.0" mnemonicParsing="false" text="Pizza" />
-      <RadioButton layoutX="393.0" layoutY="52.0" mnemonicParsing="false" text="Colunas" />
+      <RadioButton fx:id="pizzaBtn" layoutX="302.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Pizza">
+         <toggleGroup>
+            <ToggleGroup fx:id="graphic" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="colBtn" layoutX="393.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#changeGraphic" text="Colunas" toggleGroup="$graphic" />
       <DatePicker layoutX="100.0" layoutY="54.0" />
       <MenuBar layoutX="211.0" layoutY="14.0">
         <menus>
