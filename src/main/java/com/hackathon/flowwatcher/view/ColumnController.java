@@ -1,6 +1,9 @@
 package com.hackathon.flowwatcher.view;
 
 import com.hackathon.flowwatcher.Application;
+import com.hackathon.flowwatcher.model.AppModel;
+import com.hackathon.flowwatcher.model.HostModel;
+import com.hackathon.flowwatcher.model.ProtocolModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

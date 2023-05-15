@@ -13,10 +13,11 @@ import java.util.List;
 public class TrafficController {
     private TrafficModel model;
     private TrafficUIListener uiListener;
+    public String appData, protocolData, hostData;
 
-    public TrafficController(TrafficUIListener uiListener) {
+    public TrafficController() {
         this.model = new TrafficModel();
-        this.uiListener = uiListener;
+        //this.uiListener = uiListener;
     }
 
     public void startTrafficCapture() {
@@ -70,7 +71,8 @@ public class TrafficController {
                         // Saving to DB
                         model.updateAppTraffic(data);
                         //send data to UI for real-time monitoring
-                        uiListener.onAppTrafficUpdated(data);
+                        appData = data;
+                        //uiListener.onAppTrafficUpdated(data);
                     }
                     // Protocol
                     else if (socket.getPort() == 50001) {
