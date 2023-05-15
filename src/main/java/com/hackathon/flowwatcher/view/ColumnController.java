@@ -1,6 +1,9 @@
 package com.hackathon.flowwatcher.view;
 
 import com.hackathon.flowwatcher.Application;
+import com.hackathon.flowwatcher.model.AppModel;
+import com.hackathon.flowwatcher.model.HostModel;
+import com.hackathon.flowwatcher.model.ProtocolModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +18,10 @@ public class ColumnController {
     @FXML
     StackedBarChart stackedBarChart;
     private Stage stage;
+    RealTimeTrafficUI realTimeTrafficUI = new RealTimeTrafficUI();
+    AppModel appmodel;
+    ProtocolModel protocolModel;
+    HostModel hostModel;
 
     public void changeGraphic(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));
