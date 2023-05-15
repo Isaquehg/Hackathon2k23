@@ -18,10 +18,6 @@ public class ColumnController {
     @FXML
     StackedBarChart stackedBarChart;
     private Stage stage;
-    RealTimeTrafficUI realTimeTrafficUI = new RealTimeTrafficUI();
-    AppModel appmodel;
-    ProtocolModel protocolModel;
-    HostModel hostModel;
 
     public void changeGraphic(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));

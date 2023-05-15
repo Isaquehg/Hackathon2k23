@@ -1,5 +1,6 @@
 package com.hackathon.flowwatcher.view;
 
+import com.hackathon.flowwatcher.controller.TrafficController;
 import com.hackathon.flowwatcher.model.AppModel;
 import com.hackathon.flowwatcher.model.HostModel;
 import com.hackathon.flowwatcher.model.ProtocolModel;
@@ -10,9 +11,7 @@ public class RealTimeTrafficUI implements TrafficUIListener {
     @Override
     public void onAppTrafficUpdated(String data) {
         // Update UI from App data usage thread
-        AppModel appModel = new AppModel(data);
-        ColumnController columnController = new ColumnController();
-        columnController.appmodel = appModel;
+        TrafficController trafficController = new TrafficController();
     }
 
     @Override
