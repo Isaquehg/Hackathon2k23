@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -17,14 +18,22 @@ import java.util.ResourceBundle;
 
 public class ColumnController extends PizzaController implements Initializable {
     @FXML
-    StackedBarChart stackedBarChart;
-    @FXML
-    private ChoiceBox<String> mode;
-    @FXML
-    private ChoiceBox<String> time;
+    StackedBarChart stakedBarChart;
     private Stage stage;
-    @FXML
-    private Label dataUsage;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Inicializa os botões
+        super.AddModeTimeData();
+        // Grafico
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("MegaBytes");
+        series1.getData().add(new XYChart.Data<>("Telegram", 2000));
+        series1.getData().add(new XYChart.Data<>("WhatsApp", 3000));
+        series1.getData().add(new XYChart.Data<>("Teams", 2500));
+        series1.getData().add(new XYChart.Data<>("Microsoft Edge", 4000));
+        stakedBarChart.getData().addAll(series1);
+    }
 
     public void changeGraphic(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));
@@ -32,15 +41,5 @@ public class ColumnController extends PizzaController implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setScene(scene);
         stage.show();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        dataUsage.setText("APP USAGE");
-        mode.getItems().addAll("App", "Host", "Protocol");
-        time.getItems().addAll("Realtime", "Last_24h", "Last_Week");
-        mode.setValue("App");
-        time.setValue("Realtime");
-        mode.setOnAction(this::getParms);
     }
 }
