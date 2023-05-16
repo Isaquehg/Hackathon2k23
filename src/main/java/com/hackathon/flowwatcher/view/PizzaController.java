@@ -11,54 +11,28 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PizzaController implements Initializable {
+public class PizzaController extends GraphController {
 
     @FXML
     private PieChart pieChart;
-    @FXML
-    private RadioButton colBtn;
-    @FXML
-    private RadioButton pizzaBtn;
-    @FXML
-    private ChoiceBox<String> mode;
-    @FXML
-    private ChoiceBox<String> time;
-    @FXML
-    private Label dataUsage;
     @FXML
     private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mode.getItems().addAll("App", "Host", "Protocol");
-        time.getItems().addAll("Realtime", "Last_24h", "Last_Week");
-        mode.setValue("App");
-        time.setValue("Realtime");
-        dataUsage.setText("APP USAGE");
-        mode.setOnAction(this::getParms);
+        super.AddModeTimeData();
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Apples", 2),
                         new PieChart.Data("Oranges", 25),
                         new PieChart.Data("Grapes", 50),
                         new PieChart.Data("Melons", 3));
-
-
-        pieChartData.forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.getName(), " Total: ", data.pieValueProperty()
-                        )
-                )
-        );
 
         pieChart.getData().addAll(pieChartData);
     }
@@ -70,18 +44,6 @@ public class PizzaController implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void getParms(javafx.event.ActionEvent event) {
-        if(mode.getValue().equals("App")){
-            dataUsage.setText("APP USAGE");
-        }
-        if(mode.getValue().equals("Host")){
-            dataUsage.setText("HOST USAGE");
-        }
-        if(mode.getValue().equals("Protocol")){
-            dataUsage.setText("PROTOCOL USAGE");
-        }
     }
 
 }
