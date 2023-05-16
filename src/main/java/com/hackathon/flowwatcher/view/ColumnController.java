@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ColumnController extends PizzaController implements Initializable {
+public class ColumnController extends GraphController{
     @FXML
     StackedBarChart stakedBarChart;
     private Stage stage;
@@ -31,7 +31,7 @@ public class ColumnController extends PizzaController implements Initializable {
         super.AddModeTimeData();
         // Grafico
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("MegaBytes");
+        series1.setName("MB");
         series1.getData().add(new XYChart.Data<>("Telegram", 2000));
         series1.getData().add(new XYChart.Data<>("WhatsApp", 3000));
         series1.getData().add(new XYChart.Data<>("Teams", 2500));

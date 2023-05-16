@@ -17,22 +17,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PizzaController implements Initializable {
+public class PizzaController extends GraphController {
 
     @FXML
     private PieChart pieChart;
-    @FXML
-    private ChoiceBox<String> mode;
-    @FXML
-    private ChoiceBox<String> time;
-    @FXML
-    private Label dataUsage;
     @FXML
     private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AddModeTimeData();
+        super.AddModeTimeData();
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Apples", 2),
@@ -50,27 +44,6 @@ public class PizzaController implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void getParms(javafx.event.ActionEvent event) {
-        if(mode.getValue().equals("App")){
-            dataUsage.setText("APP USAGE");
-        }
-        if(mode.getValue().equals("Host")){
-            dataUsage.setText("HOST USAGE");
-        }
-        if(mode.getValue().equals("Protocol")){
-            dataUsage.setText("PROTOCOL USAGE");
-        }
-    }
-    public void AddModeTimeData(){
-        mode.getItems().addAll("App", "Host", "Protocol");
-        time.getItems().addAll("Realtime", "Last_24h", "Last_Week");
-        mode.setValue("App");
-        time.setValue("Realtime");
-        dataUsage.setText("APP USAGE");
-        mode.setOnAction(this::getParms);
-        time.setOnAction(this::getParms);
     }
 
 }
