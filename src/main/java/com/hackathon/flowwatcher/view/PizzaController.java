@@ -55,7 +55,7 @@ public class PizzaController implements Initializable {
         pieChartData.forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(
-                                data.getName(), " amount: ", data.pieValueProperty()
+                                data.getName(), " Total: ", data.pieValueProperty()
                         )
                 )
         );

@@ -1,60 +1,80 @@
 package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.bson.Document;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class ProtocolModel {
     Document document;
-    @JsonProperty("total")
-    private String total;
-    @JsonProperty("download")
-    private String download;
-    @JsonProperty("upload")
-    private String upload;
+    private String protocol;
+    private double total;
+    private double download;
+    private double upload;
 
     public ProtocolModel(Document document){
         this.document = document;
     }
-    public ProtocolModel(String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            ProtocolModel protocolModel = objectMapper.readValue(json, ProtocolModel.class);
+    public ProtocolModel(){
+    }
 
-            System.out.println("Total: " + protocolModel.getTotal());
-            System.out.println("Download: " + protocolModel.getDownload());
-            System.out.println("Upload: " + protocolModel.getUpload());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static List<ProtocolModel> getProtocolModelsFromJson(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<Map<String, ProtocolModel>> typeReference = new TypeReference<Map<String, ProtocolModel>>() {};
+
+        Map<String, ProtocolModel> map = objectMapper.readValue(json, typeReference);
+        List<ProtocolModel> protocolModels = new ArrayList<>(map.values());
+        return protocolModels;
+    }
+
+    public void convertBSON(){
+        protocol = (String) this.document.get("name");
+        total = (double) this.document.get("total");
+        download = (double) this.document.get("download");
+        upload = (double) this.document.get("upload");
     }
 
     // Getters & Setters
-    public String getTotal() {
+    @JsonProperty("protocol")
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    @JsonProperty("total")
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public String getDownload() {
+    @JsonProperty("download")
+    public double getDownload() {
         return download;
     }
 
-    public void setDownload(String download) {
+    public void setDownload(double download) {
         this.download = download;
     }
 
-    public String getUpload() {
+    @JsonProperty("upload")
+    public double getUpload() {
         return upload;
     }
 
-    public void setUpload(String upload) {
+    public void setUpload(double upload) {
         this.upload = upload;
     }
 }

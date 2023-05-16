@@ -1,43 +1,65 @@
 package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.bson.Document;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+// Class for generating objects with data usage
 public class HostModel {
-    Document document;
-    @JsonProperty("total")
+    private Document document;
+    public List<HostModel> hostModelsList;
+
+    // Data usage details
+    private String source;
     private double total;
-    @JsonProperty("download")
     private double download;
-    @JsonProperty("upload")
     private double upload;
 
+    // Constructor for Model usage when saving to DB to show history
     public HostModel(Document document){
         this.document = document;
     }
-    public HostModel(String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            HostModel dataModel = objectMapper.readValue(json, HostModel.class);
 
-            System.out.println("Host:");
-            System.out.println("Total: " + dataModel.getTotal());
-            System.out.println("Download: " + dataModel.getDownload());
-            System.out.println("Upload: " + dataModel.getUpload());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    // Constructor used when receiving real-time data
+    public HostModel() throws IOException {
+    }
+
+    // Creating Object List
+    public static List<HostModel> getHostModelsFromJson(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<Map<String, HostModel>> typeReference = new TypeReference<Map<String, HostModel>>() {};
+
+        Map<String, HostModel> map = objectMapper.readValue(json, typeReference);
+        List<HostModel> hostModels = new ArrayList<>(map.values());
+
+        return hostModels;
     }
 
     // Convert from BSON
     public void convertBSON(){
+        source = (String) this.document.get("name");
         total = (double) this.document.get("total");
         download = (double) this.document.get("download");
         upload = (double) this.document.get("upload");
     }
 
     // Getters & Setters
+    @JsonProperty("name")
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    @JsonProperty("total")
     public double getTotal() {
         return total;
     }
@@ -46,6 +68,7 @@ public class HostModel {
         this.total = total;
     }
 
+    @JsonProperty("download")
     public double getDownload() {
         return download;
     }
@@ -54,6 +77,7 @@ public class HostModel {
         this.download = download;
     }
 
+    @JsonProperty("upload")
     public double getUpload() {
         return upload;
     }

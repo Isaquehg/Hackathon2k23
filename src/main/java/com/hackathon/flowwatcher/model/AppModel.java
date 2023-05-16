@@ -1,21 +1,24 @@
 package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.bson.Document;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 // Class for generating objects with data usage
 public class AppModel {
     private Document document;
+    public List<AppModel> appModels;
 
     // Data usage details
-    @JsonProperty("name")
     private String source;
-    @JsonProperty("total")
     private double total;
-    @JsonProperty("download")
     private double download;
-    @JsonProperty("upload")
     private double upload;
 
     // Constructor for Model usage when converting a BSON to show history
@@ -24,18 +27,19 @@ public class AppModel {
     }
 
     // Constructor used when receiving real-time data
-    public AppModel(String json){
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            AppModel dataModel = objectMapper.readValue(json, AppModel.class);
+    public AppModel(String json) throws IOException {
+        this.appModels = getAppModelsFromJson(json);
+    }
 
-            System.out.println("App: " + dataModel.getSource());
-            System.out.println("Total: " + dataModel.getTotal());
-            System.out.println("Download: " + dataModel.getDownload());
-            System.out.println("Upload: " + dataModel.getUpload());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    // Creating Object List
+    public static List<AppModel> getAppModelsFromJson(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<Map<String, AppModel>> typeReference = new TypeReference<Map<String, AppModel>>() {};
+
+        Map<String, AppModel> map = objectMapper.readValue(json, typeReference);
+        List<AppModel> appModels = new ArrayList<>(map.values());
+
+        return appModels;
     }
 
     // Convert from BSON
@@ -47,6 +51,7 @@ public class AppModel {
     }
 
     // Getters & Setters
+    @JsonProperty("name")
     public String getSource() {
         return source;
     }
@@ -55,6 +60,7 @@ public class AppModel {
         this.source = source;
     }
 
+    @JsonProperty("total")
     public double getTotal() {
         return total;
     }
@@ -63,6 +69,7 @@ public class AppModel {
         this.total = total;
     }
 
+    @JsonProperty("download")
     public double getDownload() {
         return download;
     }
@@ -71,6 +78,7 @@ public class AppModel {
         this.download = download;
     }
 
+    @JsonProperty("upload")
     public double getUpload() {
         return upload;
     }
