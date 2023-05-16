@@ -73,27 +73,27 @@ public class TrafficController {
                         // Saving to DB
                         model.updateAppTraffic(data);
                         // Convert JSON to Object
-                        AppModel appModel = new AppModel(data);
+                        List<AppModel> appModelList = AppModel.getAppModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onAppTrafficUpdated(appModel);
+                        uiListener.onAppTrafficUpdated(appModelList);
                     }
                     // Protocol
                     else if (socket.getPort() == 50001) {
                         // Saving to DB
                         model.updateProtocolTraffic(data);
                         // Convert JSON to Object
-                        ProtocolModel protocolModel = new ProtocolModel(data);
+                        List<ProtocolModel> protocolModelList = ProtocolModel.getProtocolModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onProtocolTrafficUpdated(protocolModel);
+                        uiListener.onProtocolTrafficUpdated(protocolModelList);
                     }
                     //Host
                     else if (socket.getPort() == 50002) {
                         // Saving to DB
                         model.updateHostTraffic(data);
-                        // Convert JSON to object
-                        HostModel hostModel = new HostModel(data);
+                        // Convert JSON to objects
+                        List<HostModel> hostModelList = HostModel.getHostModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onHostTrafficUpdated(hostModel);
+                        uiListener.onHostTrafficUpdated(hostModelList);
                     }
                 }
             } catch (IOException e) {
