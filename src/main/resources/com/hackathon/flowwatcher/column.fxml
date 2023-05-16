@@ -46,5 +46,6 @@
             <Font name="Arial Black" size="25.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="dataType" layoutX="362.0" layoutY="19.0" prefHeight="34.0" prefWidth="138.0" />
    </children>
 </Pane>
