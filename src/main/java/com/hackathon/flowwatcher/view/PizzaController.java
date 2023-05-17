@@ -5,6 +5,7 @@ import com.hackathon.flowwatcher.controller.TrafficDataRetriever;
 import com.hackathon.flowwatcher.model.AppModel;
 import com.hackathon.flowwatcher.model.HostModel;
 import com.hackathon.flowwatcher.model.ProtocolModel;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -92,6 +93,8 @@ public class PizzaController implements TrafficUIListener, Initializable{
         String selectedTime = time.getValue();
         String selectedDataType = dataType.getValue();
 
+        ChartUIObserver chartUIObserver;
+
         // If NON-Real-time mode selected -> 24H
         if(selectedTime.equals("Last_24h")) {
             System.out.println("Searching last 24 hours data");
@@ -105,7 +108,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Create PieChart.Data objects using the appModelList
                 for (AppModel appModel : appModelList) {
                     PieChart.Data data = new PieChart.Data(appModel.getSource(), appModel.getTotal());
-                    pieChartData.add(data);
+                    chartUIObserver.realChartValue(data);
                 }
 
                 // Update the pie chart data
