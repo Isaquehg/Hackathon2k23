@@ -25,13 +25,12 @@ public class GraphController implements Initializable {
         // Add itens to checkBoxes
         mode.getItems().addAll("App", "Host", "Protocol");
         time.getItems().addAll("Realtime", "Last_24h", "Last_Week");
-        dataType.getItems().addAll("Download", "Upload");
+        dataType.getItems().addAll("Download", "Upload", "Total");
 
         // Set default value to checkBoxes and dataUsage
-        mode.setValue("App");
-        time.setValue("Realtime");
-        dataType.setValue("Download");
-        dataUsage.setText("APP USAGE");
+        mode.setValue("Select type…");
+        time.setValue("Select time…");
+        dataType.setValue("Select data type…");
 
         // Set the methods to checkBoxes
         mode.setOnAction(this::getParms);
