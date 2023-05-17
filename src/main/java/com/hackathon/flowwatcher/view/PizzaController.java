@@ -39,7 +39,6 @@ public class PizzaController implements TrafficUIListener{
     @FXML
     private Label dataUsage;
 
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AddModeTimeData();
         pieChartData =
