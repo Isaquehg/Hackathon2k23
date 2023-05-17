@@ -100,7 +100,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
             System.out.println("Searching last 24 hours data");
 
             // App
-            if (selectedTime.equals("App") && selectedDataType.equals("Total")) {
+            if (selectedMode.equals("App") && selectedDataType.equals("Total")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -108,13 +108,13 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Create PieChart.Data objects using the appModelList
                 for (AppModel appModel : appModelList) {
                     PieChart.Data data = new PieChart.Data(appModel.getSource(), appModel.getTotal());
-                    chartUIObserver.realChartValue(data);
+
                 }
 
                 // Update the pie chart data
                 pieChart.setData(pieChartData);
             }
-            else if (selectedTime.equals("App") && selectedDataType.equals("Download")) {
+            else if (selectedMode.equals("App") && selectedDataType.equals("Download")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -128,7 +128,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Update the pie chart data
                 pieChart.setData(pieChartData);
             }
-            else if (selectedTime.equals("App") && selectedDataType.equals("Upload")) {
+            else if (selectedMode.equals("App") && selectedDataType.equals("Upload")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -235,7 +235,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
         else if(selectedTime.equals("Last_Week")){
             System.out.println("Searching last week data...");
             // App
-            if (selectedTime.equals("App") && selectedDataType.equals("Total")) {
+            if (selectedMode.equals("App") && selectedDataType.equals("Total")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -249,7 +249,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Update the pie chart data
                 pieChart.setData(pieChartData);
             }
-            else if (selectedTime.equals("App") && selectedDataType.equals("Download")) {
+            else if (selectedMode.equals("App") && selectedDataType.equals("Download")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -263,7 +263,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Update the pie chart data
                 pieChart.setData(pieChartData);
             }
-            else if (selectedTime.equals("App") && selectedDataType.equals("Upload")) {
+            else if (selectedMode.equals("App") && selectedDataType.equals("Upload")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
