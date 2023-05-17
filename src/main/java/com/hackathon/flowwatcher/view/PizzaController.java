@@ -95,6 +95,8 @@ public class PizzaController implements TrafficUIListener{
 
         // If NON-Real-time mode selected -> 24H
         if(selectedTime.equals("Last_24h")) {
+            System.out.println("Searching last 24 hours data");
+
             // App
             if (selectedTime.equals("App") && selectedDataType.equals("Total")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
@@ -229,6 +231,7 @@ public class PizzaController implements TrafficUIListener{
         }
         // If NON-Real-time mode selected -> Last Week
         else if(selectedTime.equals("Last_Week")){
+            System.out.println("Searching last week data...");
             // App
             if (selectedTime.equals("App") && selectedDataType.equals("Total")) {
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
@@ -407,6 +410,8 @@ public class PizzaController implements TrafficUIListener{
     // -------------------------------------UPDATING REAL-TIME-------------------------------------------
     // APP
     private void updateChartBasedOnAppAndTotalRealtime(List<AppModel> appModelList) {
+        System.out.println("Updating App Realtime Chart...");
+
         // Cleaning previous data
         pieChartData.clear();
 
@@ -421,6 +426,7 @@ public class PizzaController implements TrafficUIListener{
     }
 
     private void updateChartBasedOnAppAndDownloadRealtime(List<AppModel> appModelList) {
+        System.out.println("Updating Download App Realtime Chart...");
         // Implement the logic to update the chart based on App and Download in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -436,6 +442,7 @@ public class PizzaController implements TrafficUIListener{
     }
 
     private void updateChartBasedOnAppAndUploadRealtime(List<AppModel> appModelList) {
+        System.out.println("Updating Upload App Realtime Chart...");
         // Implement the logic to update the chart based on App and Upload in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -452,6 +459,7 @@ public class PizzaController implements TrafficUIListener{
 
     // PROTOCOL
     private void updateChartBasedOnProtocolAndTotalRealtime(List<ProtocolModel> protocolModelList) {
+        System.out.println("Updating Protocol Realtime Chart...");
         // Implement the logic to update the chart based on Protocol and Total in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -467,6 +475,7 @@ public class PizzaController implements TrafficUIListener{
     }
 
     private void updateChartBasedOnProtocolAndDownloadRealtime(List<ProtocolModel> protocolModelList) {
+        System.out.println("Updating Download Protocol Realtime Chart...");
         // Implement the logic to update the chart based on Protocol and Download in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -482,6 +491,7 @@ public class PizzaController implements TrafficUIListener{
     }
 
     private void updateChartBasedOnProtocolAndUploadRealtime(List<ProtocolModel> protocolModelList) {
+        System.out.println("Updating Upload Protocol Realtime Chart...");
         // Implement the logic to update the chart based on Protocol and Upload in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -498,6 +508,7 @@ public class PizzaController implements TrafficUIListener{
 
     // HOST
     private void updateChartBasedOnHostAndTotalRealtime(List<HostModel> hostModelList) {
+        System.out.println("Updating Host Realtime Chart...");
         // Implement the logic to update the chart based on Host and Total in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -512,6 +523,7 @@ public class PizzaController implements TrafficUIListener{
         pieChart.setData(pieChartData);
     }
     private void updateChartBasedOnHostAndUploadRealtime(List<HostModel> hostModelList) {
+        System.out.println("Updating Upload Host Realtime Chart...");
         // Implement the logic to update the chart based on Host and Upload in Realtime
         // Cleaning previous data
         pieChartData.clear();
@@ -526,6 +538,7 @@ public class PizzaController implements TrafficUIListener{
         pieChart.setData(pieChartData);
     }
     private void updateChartBasedOnHostAndDownloadRealtime(List<HostModel> hostModelList) {
+        System.out.println("Updating Download Host Realtime Chart...");
         // Implement the logic to update the chart based on Host and download in Realtime
         // Cleaning previous data
         pieChartData.clear();

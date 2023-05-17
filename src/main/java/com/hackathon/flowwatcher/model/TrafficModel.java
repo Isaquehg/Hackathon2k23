@@ -32,22 +32,27 @@ public class TrafficModel {
     public void updateAppTraffic(String data) {
         Document document = Document.parse(data);
         appTrafficCollection.insertOne(document);
+        System.out.println("Successfully saved App Traffic!");
     }
 
     // Update host data traffic
     public void updateHostTraffic(String data) {
         Document document = Document.parse(data);
         hostTrafficCollection.insertOne(document);
+        System.out.println("Successfully saved Host Traffic!");
     }
 
     // Update protocol data traffic
     public void updateProtocolTraffic(String data) {
         Document document = Document.parse(data);
         protocolTrafficCollection.insertOne(document);
+        System.out.println("Successfully saved Protocol Traffic!");
     }
 
     // Function to get data usage from Protocol in a specific period
     public List<ProtocolModel> getProtocolDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        System.out.println("Searching Protocol Traffic...");
+
         MongoCollection<Document> collection = database.getCollection("protocoltraffic");
 
         // Defining query filter
@@ -68,6 +73,8 @@ public class TrafficModel {
     }
 
     public List<AppModel> getAppDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        System.out.println("Searching Apps Traffic...");
+
         MongoCollection<Document> collection = database.getCollection("apptraffic");
 
         // Defining query filter
@@ -88,6 +95,8 @@ public class TrafficModel {
     }
 
     public List<HostModel> getHostDataByPeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        System.out.println("Searching Host Traffic...");
+
         MongoCollection<Document> collection = database.getCollection("hosttraffic");
 
         // Defining query filter

@@ -16,10 +16,10 @@ import java.util.List;
 public class TrafficController {
     private TrafficModel model;
     private TrafficUIListener uiListener;
+    private int SLEEP_TIME_MS = 1000;
 
-    public TrafficController(TrafficUIListener uiListener) {
+    public TrafficController() {
         this.model = new TrafficModel();
-        this.uiListener = uiListener;
     }
 
     public void startTrafficCapture() {
@@ -66,6 +66,7 @@ public class TrafficController {
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     String data = new String(buffer, 0, bytesRead);
                     System.out.println("Received from port " + socket.getPort() + ": " + data);
+                    Thread.sleep(SLEEP_TIME_MS);
 
                     // Selecting which source of data will deal with
                     // User
@@ -96,7 +97,7 @@ public class TrafficController {
                         uiListener.onHostTrafficUpdated(hostModelList);
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 System.out.println("Error in connection to port " + socket.getPort() + ": " + e);
             }
         }
