@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PizzaController implements TrafficUIListener{
+public class PizzaController implements TrafficUIListener, Initializable{
     private static ObservableList<PieChart.Data> pieChartData;
 
     @FXML
