@@ -2,6 +2,7 @@ package com.hackathon.flowwatcher;
 
 import com.hackathon.flowwatcher.controller.TrafficController;
 import com.hackathon.flowwatcher.view.TrafficUIListener;
+import com.hackathon.flowwatcher.view.UISync;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,17 +21,21 @@ public class Application extends javafx.application.Application {
         stage.setTitle("FloWatcher");
         stage.setScene(scene);
         stage.show();
+
+        // Setting what to show first for thread synchronization
+        UISync.APP = true;
+        UISync.HOST = false;
+        UISync.PROTOCOL = false;
+        UISync.PIE = true;
+        UISync.COLUMN = false;
+        UISync.DOWNLOAD = false;
+        UISync.UPLOAD = false;
+        UISync.TOTAL = true;
+        UISync.REALTIME = true;
+        UISync.LAST_WEEK = false;
+        UISync.LAST_24H = false;
+
         TrafficController trafficController = new TrafficController();
-        trafficController.registerListener(new TrafficUIListener() {
-            @Override
-            public void onAppDataCaptured(List<DataItem> data) {
-                Platform.runLater(() -> {
-                    // Pass data to Pizza Chart
-                    pizzaController.updateChartData(data);
-                });
-            }
-        });
-        trafficController.startTrafficCapture();
     }
 
     public static void main(String[] args) {

@@ -93,14 +93,26 @@ public class PizzaController implements TrafficUIListener, Initializable{
         String selectedTime = time.getValue();
         String selectedDataType = dataType.getValue();
 
-        ChartUIObserver chartUIObserver;
-
         // If NON-Real-time mode selected -> 24H
         if(selectedTime.equals("Last_24h")) {
             System.out.println("Searching last 24 hours data");
 
+            // Sync
+            UISync.LAST_24H = true;
+            UISync.LAST_WEEK = false;
+            UISync.REALTIME = false;
+
             // App
             if (selectedMode.equals("App") && selectedDataType.equals("Total")) {
+
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -115,6 +127,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (selectedMode.equals("App") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -129,6 +149,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (selectedMode.equals("App") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -145,6 +173,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
             // Protocol
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Total")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -159,6 +195,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -173,6 +217,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -189,6 +241,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
             // Host
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Total")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -203,6 +263,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -217,6 +285,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(twentyFourHoursAgo, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -231,11 +307,26 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
         }
+
         // If NON-Real-time mode selected -> Last Week
         else if(selectedTime.equals("Last_Week")){
             System.out.println("Searching last week data...");
+
+            // Sync
+            UISync.LAST_24H = false;
+            UISync.LAST_WEEK = true;
+            UISync.REALTIME = false;
+
             // App
             if (selectedMode.equals("App") && selectedDataType.equals("Total")) {
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -250,6 +341,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (selectedMode.equals("App") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -264,6 +363,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (selectedMode.equals("App") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 appModelList = trafficDataRetriever.retrieveAppDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -280,6 +387,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
             // Protocol
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Total")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -294,6 +409,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -308,6 +431,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Protocol") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = true;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 protocolModelList = trafficDataRetriever.retrieveProtocolDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -324,6 +455,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
             // Host
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Total")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -338,6 +477,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Download")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -352,6 +499,14 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 pieChart.setData(pieChartData);
             }
             else if (mode.getValue().equals("Host") && selectedDataType.equals("Upload")) {
+                // Sync
+                UISync.APP = false;
+                UISync.PROTOCOL = false;
+                UISync.HOST = true;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
+
                 hostModelList = trafficDataRetriever.retrieveHostDataByPeriod(lastWeek, now);
                 // Cleaning previous data
                 pieChartData.clear();
@@ -364,6 +519,43 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
                 // Update the pie chart data
                 pieChart.setData(pieChartData);
+            }
+        }
+
+        // If NON-Real-time mode selected -> Last Week
+        else if(selectedTime.equals("Realtime")){
+
+            // Sync
+            UISync.LAST_24H = false;
+            UISync.LAST_WEEK = false;
+            UISync.REALTIME = true;
+
+            if(mode.getValue().equals("App") && dataType.getValue().equals("Total")){
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = true;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = false;
+            }
+            else if(mode.getValue().equals("App") && dataType.getValue().equals("Download")){
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = false;
+                UISync.DOWNLOAD = true;
+            }
+            else if(mode.getValue().equals("App") && dataType.getValue().equals("Upload")){
+                // Sync
+                UISync.APP = true;
+                UISync.PROTOCOL = false;
+                UISync.HOST = false;
+                UISync.TOTAL = false;
+                UISync.UPLOAD = true;
+                UISync.DOWNLOAD = false;
             }
         }
     }
@@ -372,12 +564,12 @@ public class PizzaController implements TrafficUIListener, Initializable{
     // Sending App usage to graph
     @Override
     public void onAppTrafficUpdated(List<AppModel> appModelList) {
-        if (time.getValue().equals("Realtime") && mode.getValue().equals("App")) {
-            if (dataType.getValue().equals("Total")) {
+        if (UISync.APP && UISync.REALTIME) {
+            if (UISync.TOTAL) {
                 updateChartBasedOnAppAndTotalRealtime(appModelList);
-            } else if (dataType.getValue().equals("Download")) {
+            } else if (UISync.DOWNLOAD) {
                 updateChartBasedOnAppAndDownloadRealtime(appModelList);
-            } else if (dataType.getValue().equals("Upload")) {
+            } else if (UISync.UPLOAD) {
                 updateChartBasedOnAppAndUploadRealtime(appModelList);
             }
         }
@@ -385,12 +577,12 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
     @Override
     public void onProtocolTrafficUpdated(List<ProtocolModel> protocolModelList) {
-        if (time.getValue().equals("Realtime") && mode.getValue().equals("Protocol")) {
-            if (dataType.getValue().equals("Total")) {
+        if (UISync.REALTIME && UISync.PROTOCOL) {
+            if (UISync.TOTAL) {
                 updateChartBasedOnProtocolAndTotalRealtime(protocolModelList);
-            } else if (dataType.getValue().equals("Download")) {
+            } else if (UISync.DOWNLOAD) {
                 updateChartBasedOnProtocolAndDownloadRealtime(protocolModelList);
-            } else if (dataType.getValue().equals("Upload")) {
+            } else if (UISync.UPLOAD) {
                 updateChartBasedOnProtocolAndUploadRealtime(protocolModelList);
             }
         }
@@ -398,12 +590,12 @@ public class PizzaController implements TrafficUIListener, Initializable{
 
     @Override
     public void onHostTrafficUpdated(List<HostModel> hostModelList) {
-        if (time.getValue().equals("Realtime") && mode.getValue().equals("Host")) {
-            if (dataType.getValue().equals("Total")) {
+        if (UISync.HOST && UISync.REALTIME) {
+            if (UISync.TOTAL) {
                 updateChartBasedOnHostAndTotalRealtime(hostModelList);
-            } else if (dataType.getValue().equals("Download")) {
+            } else if (UISync.DOWNLOAD) {
                 updateChartBasedOnHostAndDownloadRealtime(hostModelList);
-            } else if (dataType.getValue().equals("Upload")) {
+            } else if (UISync.UPLOAD) {
                 updateChartBasedOnHostAndUploadRealtime(hostModelList);
             }
         }
