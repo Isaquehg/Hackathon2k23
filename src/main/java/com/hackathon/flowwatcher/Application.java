@@ -16,7 +16,10 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
-        PizzaController pizzaController = new PizzaController();
+
+        // Adapting PizzaController to work with the interface
+        PizzaController pizzaController = fxmlLoader.getController();
+
         fxmlLoader.setController(pizzaController);
         stage.setTitle("FloWatcher");
         stage.setScene(scene);
@@ -35,7 +38,9 @@ public class Application extends javafx.application.Application {
         UISync.LAST_WEEK = false;
         UISync.LAST_24H = false;
 
-        TrafficController trafficController = new TrafficController();
+        // Instantiating Interface like Observer with UI controller
+        TrafficUIListener trafficUIListener = pizzaController;
+        TrafficController trafficController = new TrafficController(trafficUIListener);
         trafficController.startTrafficCapture();
     }
 

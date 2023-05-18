@@ -1,6 +1,7 @@
 package com.hackathon.flowwatcher.view;
 
 import com.hackathon.flowwatcher.Application;
+import com.hackathon.flowwatcher.controller.TrafficController;
 import com.hackathon.flowwatcher.controller.TrafficDataRetriever;
 import com.hackathon.flowwatcher.model.AppModel;
 import com.hackathon.flowwatcher.model.HostModel;
@@ -568,7 +569,6 @@ public class PizzaController implements TrafficUIListener, Initializable{
             }
         }
     }
-
     @Override
     public void onProtocolTrafficUpdated(List<ProtocolModel> protocolModelList) {
         if (UISync.REALTIME && UISync.PROTOCOL) {

@@ -18,8 +18,9 @@ public class TrafficController {
     private static TrafficModel model;
     private static TrafficUIListener uiListener;
 
-    public TrafficController() {
+    public TrafficController(TrafficUIListener trafficUIListener) {
         this.model = new TrafficModel();
+        this.uiListener = trafficUIListener;
     }
 
     public void startTrafficCapture() {
