@@ -6,6 +6,7 @@ import com.hackathon.flowwatcher.model.ProtocolModel;
 import com.hackathon.flowwatcher.model.TrafficModel;
 import com.hackathon.flowwatcher.view.TrafficUIListener;
 import com.hackathon.flowwatcher.view.UISync;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,7 +78,9 @@ public class TrafficController {
                         // Convert JSON to Object
                         List<AppModel> appModelList = AppModel.getAppModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onAppTrafficUpdated(appModelList);
+                        Platform.runLater(() ->{
+                            uiListener.onAppTrafficUpdated(appModelList);
+                        });
                     }
                     // Protocol
                     else if ((socket.getPort() == 50001) && UISync.PROTOCOL) {
@@ -86,7 +89,9 @@ public class TrafficController {
                         // Convert JSON to Object
                         List<ProtocolModel> protocolModelList = ProtocolModel.getProtocolModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onProtocolTrafficUpdated(protocolModelList);
+                        Platform.runLater(() ->{
+                            uiListener.onProtocolTrafficUpdated(protocolModelList);
+                        });
                     }
                     //Host
                     else if ((socket.getPort() == 50002) && UISync.HOST) {
@@ -95,7 +100,9 @@ public class TrafficController {
                         // Convert JSON to objects
                         List<HostModel> hostModelList = HostModel.getHostModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onHostTrafficUpdated(hostModelList);
+                        Platform.runLater(() ->{
+                           uiListener.onHostTrafficUpdated(hostModelList);
+                        });
                     }
                 }
             } catch (IOException e) {

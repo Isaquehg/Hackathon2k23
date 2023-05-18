@@ -53,9 +53,9 @@ public class PizzaController implements TrafficUIListener, Initializable{
         dataType.getItems().addAll("Total", "Download", "Upload");
 
         // Set default value to checkBoxes and graph
-        mode.setValue("App");
-        time.setValue("Realtime");
-        dataType.setValue("Total");
+        mode.setValue("Select type…");
+        time.setValue("Select time…");
+        dataType.setValue("Select data type…");
         dataUsage.setText("APP USAGE");
         pieChart.getData().addAll(pieChartData);
 
