@@ -30,21 +30,39 @@ public class TrafficModel {
 
     // Update app data traffic in database
     public void updateAppTraffic(String data) {
-        Document document = Document.parse(data);
+        // Removing HTTP headers
+        int jsonStart = data.indexOf('{');
+        int jsonEnd = data.lastIndexOf('}') + 1;
+        String jsonData = data.substring(jsonStart, jsonEnd);
+
+        // Parse and set the document in MongoDB
+        Document document = Document.parse(jsonData);
         appTrafficCollection.insertOne(document);
         System.out.println("Successfully saved App Traffic!");
     }
 
     // Update host data traffic
     public void updateHostTraffic(String data) {
-        Document document = Document.parse(data);
+        // Removing HTTP headers
+        int jsonStart = data.indexOf('{');
+        int jsonEnd = data.lastIndexOf('}') + 1;
+        String jsonData = data.substring(jsonStart, jsonEnd);
+
+        // Parse and set the document in MongoDB
+        Document document = Document.parse(jsonData);
         hostTrafficCollection.insertOne(document);
         System.out.println("Successfully saved Host Traffic!");
     }
 
     // Update protocol data traffic
     public void updateProtocolTraffic(String data) {
-        Document document = Document.parse(data);
+        // Removing HTTP headers
+        int jsonStart = data.indexOf('{');
+        int jsonEnd = data.lastIndexOf('}') + 1;
+        String jsonData = data.substring(jsonStart, jsonEnd);
+
+        // Parse and set the document in MongoDB
+        Document document = Document.parse(jsonData);
         protocolTrafficCollection.insertOne(document);
         System.out.println("Successfully saved Protocol Traffic!");
     }

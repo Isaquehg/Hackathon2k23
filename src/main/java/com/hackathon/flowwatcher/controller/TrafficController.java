@@ -6,6 +6,7 @@ import com.hackathon.flowwatcher.model.ProtocolModel;
 import com.hackathon.flowwatcher.model.TrafficModel;
 import com.hackathon.flowwatcher.view.TrafficUIListener;
 import com.hackathon.flowwatcher.view.UISync;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,8 +19,9 @@ public class TrafficController {
     private static TrafficModel model;
     private static TrafficUIListener uiListener;
 
-    public TrafficController() {
+    public TrafficController(TrafficUIListener trafficUIListener) {
         this.model = new TrafficModel();
+        this.uiListener = trafficUIListener;
     }
 
     public void startTrafficCapture() {
@@ -71,33 +73,36 @@ public class TrafficController {
                     // Selecting which source of data will deal with
                     // User
                     if((socket.getPort() == 50000) && UISync.APP){
-                        System.out.println("socket porta 5000");
                         // Saving to DB
                         model.updateAppTraffic(data);
                         // Convert JSON to Object
                         List<AppModel> appModelList = AppModel.getAppModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onAppTrafficUpdated(appModelList);
+                        Platform.runLater(() ->{
+                            uiListener.onAppTrafficUpdated(appModelList);
+                        });
                     }
                     // Protocol
                     else if ((socket.getPort() == 50001) && UISync.PROTOCOL) {
-                        System.out.println("Socket 5001");
                         // Saving to DB
                         model.updateProtocolTraffic(data);
                         // Convert JSON to Object
                         List<ProtocolModel> protocolModelList = ProtocolModel.getProtocolModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onProtocolTrafficUpdated(protocolModelList);
+                        Platform.runLater(() ->{
+                            uiListener.onProtocolTrafficUpdated(protocolModelList);
+                        });
                     }
                     //Host
                     else if ((socket.getPort() == 50002) && UISync.HOST) {
                         // Saving to DB
-                        System.out.println("Socket 5002");
                         model.updateHostTraffic(data);
                         // Convert JSON to objects
                         List<HostModel> hostModelList = HostModel.getHostModelsFromJson(data);
                         // Send data to UI for real-time monitoring
-                        uiListener.onHostTrafficUpdated(hostModelList);
+                        Platform.runLater(() ->{
+                           uiListener.onHostTrafficUpdated(hostModelList);
+                        });
                     }
                 }
             } catch (IOException e) {
