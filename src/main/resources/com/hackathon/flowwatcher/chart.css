@@ -1,0 +1,12 @@
+/*
+   Find more details on JavaFX supported named colors at
+   http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#t...
+*/
+
+/* Pie Chart legend background color and stroke. */
+.chart-legend-item-text {
+    -fx-fill: white;
+}
+.chart-pie-label{
+    -fx-fill: white;
+}

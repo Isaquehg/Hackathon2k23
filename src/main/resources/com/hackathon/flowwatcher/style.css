@@ -1,0 +1,21 @@
+.button
+{
+    -fx-background-color : "#2eddd3";
+}
+.choice-box{
+    -fx-background-color: "#2eddd3";
+    -fx-mark-color: black;
+}
+.choice-box .menu-item:focused {
+     -fx-background-color: "#FFF";
+}
+.choice-box .context-menu {
+    -fx-background-color: black;
+}
+.choice-box .menu-item > .label {
+    -fx-text-fill: "#ff00ff";
+}
+
+.radio-button{
+    -fx-focus-color: "#ff00ff";
+}
