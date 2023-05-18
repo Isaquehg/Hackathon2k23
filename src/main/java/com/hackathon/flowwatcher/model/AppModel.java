@@ -33,10 +33,16 @@ public class AppModel {
 
     // Creating Object List
     public static List<AppModel> getAppModelsFromJson(String json) throws IOException {
+        // Removing unwanted text
+        int jsonStart = json.indexOf('{');
+        int jsonEnd = json.lastIndexOf('}') + 1;
+        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+
+        // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<Map<String, AppModel>> typeReference = new TypeReference<Map<String, AppModel>>() {};
 
-        Map<String, AppModel> map = objectMapper.readValue(json, typeReference);
+        Map<String, AppModel> map = objectMapper.readValue(jsonSubstring, typeReference);
         List<AppModel> appModels = new ArrayList<>(map.values());
 
         return appModels;

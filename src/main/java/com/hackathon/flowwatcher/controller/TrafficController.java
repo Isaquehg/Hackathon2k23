@@ -15,9 +15,8 @@ import java.util.List;
 
 // Class for retrieving real-time data traffic from sockets
 public class TrafficController {
-    private TrafficModel model;
-    private TrafficUIListener uiListener;
-    private int SLEEP_TIME_MS = 1000;
+    private static TrafficModel model;
+    private static TrafficUIListener uiListener;
 
     public TrafficController() {
         this.model = new TrafficModel();
@@ -43,15 +42,16 @@ public class TrafficController {
 
     }
 
-    public SocketConnectionHandler handleSocketConnection(int port) throws IOException {
+    public static SocketConnectionHandler handleSocketConnection(int port) throws IOException {
         Socket socket = new Socket("localhost", port);
         System.out.println("Connected to port " + port + ".");
         SocketConnectionHandler handler = new SocketConnectionHandler(socket);
+        handler.start();
         return handler;
     }
 
     // Thread for package capture
-    public class SocketConnectionHandler extends Thread {
+    public static class SocketConnectionHandler extends Thread {
         private Socket socket;
 
         public SocketConnectionHandler(Socket socket) {
@@ -67,11 +67,11 @@ public class TrafficController {
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     String data = new String(buffer, 0, bytesRead);
                     System.out.println("Received from port " + socket.getPort() + ": " + data);
-                    Thread.sleep(SLEEP_TIME_MS);
 
                     // Selecting which source of data will deal with
                     // User
                     if((socket.getPort() == 50000) && UISync.APP){
+                        System.out.println("socket porta 5000");
                         // Saving to DB
                         model.updateAppTraffic(data);
                         // Convert JSON to Object
@@ -81,6 +81,7 @@ public class TrafficController {
                     }
                     // Protocol
                     else if ((socket.getPort() == 50001) && UISync.PROTOCOL) {
+                        System.out.println("Socket 5001");
                         // Saving to DB
                         model.updateProtocolTraffic(data);
                         // Convert JSON to Object
@@ -91,6 +92,7 @@ public class TrafficController {
                     //Host
                     else if ((socket.getPort() == 50002) && UISync.HOST) {
                         // Saving to DB
+                        System.out.println("Socket 5002");
                         model.updateHostTraffic(data);
                         // Convert JSON to objects
                         List<HostModel> hostModelList = HostModel.getHostModelsFromJson(data);
@@ -98,7 +100,7 @@ public class TrafficController {
                         uiListener.onHostTrafficUpdated(hostModelList);
                     }
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 System.out.println("Error in connection to port " + socket.getPort() + ": " + e);
             }
         }
