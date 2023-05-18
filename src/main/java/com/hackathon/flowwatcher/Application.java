@@ -36,6 +36,7 @@ public class Application extends javafx.application.Application {
         UISync.LAST_24H = false;
 
         TrafficController trafficController = new TrafficController();
+        trafficController.startTrafficCapture();
     }
 
     public static void main(String[] args) {
