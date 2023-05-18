@@ -25,7 +25,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PizzaController implements TrafficUIListener, Initializable{
-    private static ObservableList<PieChart.Data> pieChartData;
+    private static ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("Apples", 2),
+            new PieChart.Data("Oranges", 25),
+            new PieChart.Data("Grapes", 50),
+            new PieChart.Data("Melons", 3));
 
     @FXML
     private PieChart pieChart;
@@ -40,29 +44,19 @@ public class PizzaController implements TrafficUIListener, Initializable{
     @FXML
     private Label dataUsage;
 
+    // Initial setup
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AddModeTimeData();
-        pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Apples", 2),
-                        new PieChart.Data("Oranges", 25),
-                        new PieChart.Data("Grapes", 50),
-                        new PieChart.Data("Melons", 3));
-
-        pieChart.getData().addAll(pieChartData);
-    }
-
-    public void AddModeTimeData(){
         // Add items to checkBoxes
         mode.getItems().addAll("App", "Host", "Protocol");
         time.getItems().addAll("Realtime", "Last_24h", "Last_Week");
         dataType.getItems().addAll("Total", "Download", "Upload");
 
-        // Set default value to checkBoxes and dataUsage
+        // Set default value to checkBoxes and graph
         mode.setValue("App");
         time.setValue("Realtime");
         dataType.setValue("Total");
         dataUsage.setText("APP USAGE");
+        pieChart.getData().addAll(pieChartData);
 
         // Set the methods to checkBoxes
         mode.setOnAction(this::updateChart);
@@ -93,7 +87,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
         String selectedTime = time.getValue();
         String selectedDataType = dataType.getValue();
 
-        // If NON-Real-time mode selected -> 24H
+        // LAST 24H MODE
         if(selectedTime.equals("Last_24h")) {
             System.out.println("Searching last 24 hours data");
 
@@ -120,7 +114,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
                 // Create PieChart.Data objects using the appModelList
                 for (AppModel appModel : appModelList) {
                     PieChart.Data data = new PieChart.Data(appModel.getSource(), appModel.getTotal());
-
+                    pieChartData.add(data);
                 }
 
                 // Update the pie chart data
@@ -308,7 +302,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
             }
         }
 
-        // If NON-Real-time mode selected -> Last Week
+        // LAST WEEK MODE
         else if(selectedTime.equals("Last_Week")){
             System.out.println("Searching last week data...");
 
@@ -522,7 +516,7 @@ public class PizzaController implements TrafficUIListener, Initializable{
             }
         }
 
-        // If NON-Real-time mode selected -> Last Week
+        // REAL-TIME MODE
         else if(selectedTime.equals("Realtime")){
 
             // Sync
