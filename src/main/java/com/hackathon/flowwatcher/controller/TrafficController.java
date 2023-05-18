@@ -46,6 +46,7 @@ public class TrafficController {
         Socket socket = new Socket("localhost", port);
         System.out.println("Connected to port " + port + ".");
         SocketConnectionHandler handler = new SocketConnectionHandler(socket);
+        handler.start();
         return handler;
     }
 

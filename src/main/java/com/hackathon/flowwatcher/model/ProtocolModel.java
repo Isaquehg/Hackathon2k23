@@ -26,11 +26,18 @@ public class ProtocolModel {
     }
 
     public static List<ProtocolModel> getProtocolModelsFromJson(String json) throws IOException {
+        // Removing unwanted text
+        int jsonStart = json.indexOf('{');
+        int jsonEnd = json.lastIndexOf('}') + 1;
+        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+
+        // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<Map<String, ProtocolModel>> typeReference = new TypeReference<Map<String, ProtocolModel>>() {};
 
-        Map<String, ProtocolModel> map = objectMapper.readValue(json, typeReference);
+        Map<String, ProtocolModel> map = objectMapper.readValue(jsonSubstring, typeReference);
         List<ProtocolModel> protocolModels = new ArrayList<>(map.values());
+
         return protocolModels;
     }
 

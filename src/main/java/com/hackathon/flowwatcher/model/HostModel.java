@@ -32,10 +32,16 @@ public class HostModel {
 
     // Creating Object List
     public static List<HostModel> getHostModelsFromJson(String json) throws IOException {
+        // Removing unwanted text
+        int jsonStart = json.indexOf('{');
+        int jsonEnd = json.lastIndexOf('}') + 1;
+        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+
+        // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<Map<String, HostModel>> typeReference = new TypeReference<Map<String, HostModel>>() {};
 
-        Map<String, HostModel> map = objectMapper.readValue(json, typeReference);
+        Map<String, HostModel> map = objectMapper.readValue(jsonSubstring, typeReference);
         List<HostModel> hostModels = new ArrayList<>(map.values());
 
         return hostModels;
