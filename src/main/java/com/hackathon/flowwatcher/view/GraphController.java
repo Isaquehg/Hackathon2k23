@@ -39,15 +39,15 @@ public class GraphController implements Initializable {
     }
 
     public void getParms(javafx.event.ActionEvent event) {
-        if(mode.getValue().equals("App")){
-            dataUsage.setText("APP USAGE");
-        }
-        if(mode.getValue().equals("Host")){
-            dataUsage.setText("HOST USAGE");
-        }
-        if(mode.getValue().equals("Protocol")){
-            dataUsage.setText("PROTOCOL USAGE");
-        }
+            if (mode.getValue().equals("App")) {
+                dataUsage.setText("APP USAGE");
+            }
+            if (mode.getValue().equals("Host")) {
+                dataUsage.setText("HOST USAGE");
+            }
+            if (mode.getValue().equals("Protocol")) {
+                dataUsage.setText("PROTOCOL USAGE");
+            }
     }
 
 }

@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="1364.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackathon.flowwatcher.view.ColumnController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="1364.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackathon.flowwatcher.view.ColumnController">
    <children>
-      <RadioButton fx:id="pizzaBtn" layoutX="882.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#changeGraphic" text="Pie" textFill="#0080ff">
-         <toggleGroup>
-            <ToggleGroup fx:id="graphic" />
-         </toggleGroup>
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font></RadioButton>
-      <RadioButton fx:id="colBtn" layoutX="969.0" layoutY="24.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" selected="true" text="Bar" textFill="#0080ff" toggleGroup="$graphic">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font></RadioButton>
       <Separator layoutX="5.0" layoutY="66.0" prefHeight="8.0" prefWidth="1360.0" />
       <StackedBarChart fx:id="stakedBarChart" layoutX="-6.0" layoutY="135.0" prefHeight="630.0" prefWidth="1372.0" titleSide="BOTTOM">
         <xAxis>
@@ -34,18 +24,46 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </StackedBarChart>
-      <Button layoutX="1126.0" layoutY="20.0" mnemonicParsing="false" text="Export CSV" textFill="#0080ff">
+      <Button layoutX="1126.0" layoutY="20.0" mnemonicParsing="false" stylesheets="@style.css" text="Export CSV">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="mode" layoutX="14.0" layoutY="20.0" prefHeight="34.0" prefWidth="138.0" />
-      <ChoiceBox fx:id="time" layoutX="188.0" layoutY="20.0" prefHeight="34.0" prefWidth="138.0" />
-      <Label fx:id="dataUsage" alignment="CENTER" layoutX="519.0" layoutY="92.0" prefHeight="34.0" prefWidth="345.0" text="DATA USAGE" textFill="#0080ff">
+      <ChoiceBox fx:id="mode" layoutX="14.0" layoutY="20.0" prefHeight="34.0" prefWidth="138.0" stylesheets="@style.css" />
+      <ChoiceBox fx:id="time" layoutX="188.0" layoutY="20.0" prefHeight="34.0" prefWidth="138.0" stylesheets="@style.css" />
+      <Label fx:id="dataUsage" alignment="CENTER" layoutX="519.0" layoutY="92.0" prefHeight="34.0" prefWidth="345.0" text="DATA USAGE" textFill="#2eddd3">
          <font>
             <Font name="Arial Black" size="25.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="dataType" layoutX="362.0" layoutY="19.0" prefHeight="34.0" prefWidth="138.0" />
+      <ChoiceBox fx:id="dataType" layoutX="362.0" layoutY="19.0" prefHeight="34.0" prefWidth="138.0" stylesheets="@style.css" />
+      <JFXRadioButton layoutX="864.0" layoutY="19.0" onMouseClicked="#changeGraphic" prefHeight="34.0" prefWidth="73.0" text="Pie" textFill="WHITE">
+         <unSelectedColor>
+            <Color red="1.0" blue="1.0" />
+         </unSelectedColor>
+         <selectedColor>
+            <Color red="1.0" blue="1.0" />
+         </selectedColor>
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="graphic" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="Barbtn" layoutX="955.0" layoutY="17.0" onMouseClicked="#changeGraphic" prefHeight="38.0" prefWidth="73.0" selected="true" text="Bar" textFill="WHITE">
+         <unSelectedColor>
+            <Color red="1.0" blue="1.0" />
+         </unSelectedColor>
+         <selectedColor>
+            <Color red="1.0" blue="1.0" />
+         </selectedColor>
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="graphic" />
+         </toggleGroup>
+      </JFXRadioButton>
    </children>
 </Pane>
