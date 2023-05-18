@@ -28,7 +28,7 @@
          </font>
       </Label>
       <ChoiceBox fx:id="dataType" layoutX="362.0" layoutY="19.0" prefHeight="34.0" prefWidth="138.0" stylesheets="@style.css" />
-      <JFXRadioButton layoutX="864.0" layoutY="17.0" prefHeight="38.0" prefWidth="123.0" selected="true" text="Pie" textFill="WHITE">
+      <JFXRadioButton layoutX="864.0" layoutY="17.0" prefHeight="34.0" prefWidth="73.0" selected="true" text="Pie" textFill="WHITE">
          <unSelectedColor>
             <Color red="1.0" blue="1.0" />
          </unSelectedColor>
@@ -42,7 +42,7 @@
             <ToggleGroup fx:id="graphic" />
          </toggleGroup>
       </JFXRadioButton>
-      <JFXRadioButton fx:id="Barbtn" layoutX="955.0" layoutY="17.0" onMouseClicked="#changeGraphic" prefHeight="38.0" prefWidth="123.0" text="Bar" textFill="WHITE" toggleGroup="$graphic">
+      <JFXRadioButton fx:id="Barbtn" layoutX="955.0" layoutY="17.0" onMouseClicked="#changeGraphic" prefHeight="38.0" prefWidth="73.0" text="Bar" textFill="WHITE" toggleGroup="$graphic">
          <unSelectedColor>
             <Color red="1.0" blue="1.0" />
          </unSelectedColor>
