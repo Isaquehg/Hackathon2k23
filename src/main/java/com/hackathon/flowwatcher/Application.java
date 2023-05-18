@@ -1,6 +1,9 @@
 package com.hackathon.flowwatcher;
 
 import com.hackathon.flowwatcher.controller.TrafficController;
+import com.hackathon.flowwatcher.view.TrafficUIListener;
+import com.hackathon.flowwatcher.view.UISync;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,13 +16,27 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("pizza.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
-        PizzaController controller = new PizzaController();
-        fxmlLoader.setController(controller);
+        PizzaController pizzaController = new PizzaController();
+        fxmlLoader.setController(pizzaController);
         stage.setTitle("FloWatcher");
         stage.setScene(scene);
         stage.show();
-        // Ao iniciar a aplicação, lembrar de instanciar a classe startTrafficCapture() para inciar as 3 threads
-        // Podemos dividir a aplicação entre mostrar em tempo real e por período específico
+
+        // Setting what to show first for thread synchronization
+        UISync.APP = true;
+        UISync.HOST = false;
+        UISync.PROTOCOL = false;
+        UISync.PIE = true;
+        UISync.COLUMN = false;
+        UISync.DOWNLOAD = false;
+        UISync.UPLOAD = false;
+        UISync.TOTAL = true;
+        UISync.REALTIME = true;
+        UISync.LAST_WEEK = false;
+        UISync.LAST_24H = false;
+
+        TrafficController trafficController = new TrafficController();
+        trafficController.startTrafficCapture();
     }
 
     public static void main(String[] args) {

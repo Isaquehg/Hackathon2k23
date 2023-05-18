@@ -13,11 +13,15 @@ public class MongoDBConnection {
 
     public MongoDBConnection() {
         // Setting up MongoDB
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017");
-        this.mongoClient = MongoClients.create(connectionString);
+        try{
+            ConnectionString connectionString = new ConnectionString("mongodb+srv://isaquehghackathon:KfFvapQzaoTx8W9i@cluster0.f5goe18.mongodb.net/?retryWrites=true&w=majority");
+            this.mongoClient = MongoClients.create(connectionString);
 
-        // Getting reference
-        this.database = mongoClient.getDatabase(DATABASE_NAME);
+            // Getting reference
+            this.database = mongoClient.getDatabase(DATABASE_NAME);
+        } catch (Exception e){
+            System.out.println("MongoDB error: " + e.getMessage());
+        }
     }
 
     public MongoDatabase getDatabase() {

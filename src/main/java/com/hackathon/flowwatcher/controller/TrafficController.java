@@ -5,6 +5,7 @@ import com.hackathon.flowwatcher.model.HostModel;
 import com.hackathon.flowwatcher.model.ProtocolModel;
 import com.hackathon.flowwatcher.model.TrafficModel;
 import com.hackathon.flowwatcher.view.TrafficUIListener;
+import com.hackathon.flowwatcher.view.UISync;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +17,10 @@ import java.util.List;
 public class TrafficController {
     private TrafficModel model;
     private TrafficUIListener uiListener;
+    private int SLEEP_TIME_MS = 1000;
 
-    public TrafficController(TrafficUIListener uiListener) {
+    public TrafficController() {
         this.model = new TrafficModel();
-        this.uiListener = uiListener;
     }
 
     public void startTrafficCapture() {
@@ -66,10 +67,11 @@ public class TrafficController {
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     String data = new String(buffer, 0, bytesRead);
                     System.out.println("Received from port " + socket.getPort() + ": " + data);
+                    Thread.sleep(SLEEP_TIME_MS);
 
                     // Selecting which source of data will deal with
                     // User
-                    if(socket.getPort() == 50000){
+                    if((socket.getPort() == 50000) && UISync.APP){
                         // Saving to DB
                         model.updateAppTraffic(data);
                         // Convert JSON to Object
@@ -78,7 +80,7 @@ public class TrafficController {
                         uiListener.onAppTrafficUpdated(appModelList);
                     }
                     // Protocol
-                    else if (socket.getPort() == 50001) {
+                    else if ((socket.getPort() == 50001) && UISync.PROTOCOL) {
                         // Saving to DB
                         model.updateProtocolTraffic(data);
                         // Convert JSON to Object
@@ -87,7 +89,7 @@ public class TrafficController {
                         uiListener.onProtocolTrafficUpdated(protocolModelList);
                     }
                     //Host
-                    else if (socket.getPort() == 50002) {
+                    else if ((socket.getPort() == 50002) && UISync.HOST) {
                         // Saving to DB
                         model.updateHostTraffic(data);
                         // Convert JSON to objects
@@ -96,7 +98,7 @@ public class TrafficController {
                         uiListener.onHostTrafficUpdated(hostModelList);
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 System.out.println("Error in connection to port " + socket.getPort() + ": " + e);
             }
         }
