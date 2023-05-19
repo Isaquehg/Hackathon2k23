@@ -1,5 +1,7 @@
 package com.hackathon.flowwatcher.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.model.Filters;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
@@ -7,7 +9,9 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import reactor.core.publisher.Flux;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 public class TrafficModel {
@@ -28,17 +32,43 @@ public class TrafficModel {
         this.protocolTrafficCollection = database.getCollection("protocoltraffic");
     }
 
-    // Update app data traffic in database
+    // Insert app data traffic in database
     public void updateAppTraffic(String data) {
-        // Removing HTTP headers
-        int jsonStart = data.indexOf('{');
-        int jsonEnd = data.lastIndexOf('}') + 1;
-        String jsonData = data.substring(jsonStart, jsonEnd);
+        try {
+            int jsonStart = data.indexOf('{');
+            int jsonEnd = data.lastIndexOf('}') + 1;
+            String jsonData = data.substring(jsonStart, jsonEnd);
 
-        // Parse and set the document in MongoDB
-        Document document = Document.parse(jsonData);
-        appTrafficCollection.insertOne(document);
-        System.out.println("Successfully saved App Traffic!");
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonData);
+
+            Iterator<String> keys = jsonNode.fieldNames();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                JsonNode appNode = jsonNode.get(key);
+
+                Document appDocument = new Document();
+                Iterator<String> appKeys = appNode.fieldNames();
+
+                while (appKeys.hasNext()) {
+                    String appKey = appKeys.next();
+                    if(appNode.get(appKey).equals("name")){
+                        System.out.println("Name saved MongoDB");
+                        appDocument.append(appKey, appNode.get(appKey).asText());
+                    }
+                    else {
+                        appDocument.append(appKey, appNode.get(appKey).asDouble());
+                    }
+                }
+
+                appDocument.append(key, appDocument);
+                appTrafficCollection.insertOne(appDocument);
+                System.out.println("Inserted in MongoDB!!!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Update host data traffic

@@ -2,12 +2,13 @@ package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.bson.Document;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,23 +29,41 @@ public class AppModel {
     }
 
     // Constructor used when receiving real-time data
-    public AppModel(String json) throws IOException {
-        this.appModels = getAppModelsFromJson(json);
+    public AppModel() throws IOException {
+
     }
 
     // Creating Object List
-    public static List<AppModel> getAppModelsFromJson(String json) throws IOException {
-        // Removing unwanted text
-        json = json.replace("b'", "");
+    public static List<AppModel> getAppModelsFromJson(String jsonString) {
+        List<AppModel> appList = new ArrayList<>();
 
-        // Processing JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<Map<String, AppModel>> typeReference = new TypeReference<Map<String, AppModel>>() {};
+        try {
+            int jsonStart = jsonString.indexOf('{');
+            int jsonEnd = jsonString.lastIndexOf('}') + 1;
+            String jsonData = jsonString.substring(jsonStart, jsonEnd);
 
-        Map<String, AppModel> map = objectMapper.readValue(json, typeReference);
-        List<AppModel> appModels = new ArrayList<>(map.values());
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonData);
 
-        return appModels;
+            Iterator<String> keys = jsonNode.fieldNames();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                JsonNode appNode = jsonNode.get(key);
+
+                AppModel app = new AppModel();
+                app.setSource(appNode.get("name").asText());
+                app.setDownload(appNode.get("download").asDouble());
+                app.setUpload(appNode.get("upload").asDouble());
+                app.setTotal(appNode.get("upload_speed").asDouble());
+
+                appList.add(app);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return appList;
     }
 
     // Convert from BSON

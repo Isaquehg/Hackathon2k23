@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.bson.Document;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.*;
 
 public class ProtocolModel {
     Document document;
@@ -26,17 +23,25 @@ public class ProtocolModel {
     }
 
     public static List<ProtocolModel> getProtocolModelsFromJson(String json) throws IOException {
-        // Removing unwanted text
-        int jsonStart = json.indexOf('{');
-        int jsonEnd = json.lastIndexOf('}') + 1;
-        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+        List<ProtocolModel> protocolModels = new ArrayList<>();
 
-        // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<Map<String, ProtocolModel>> typeReference = new TypeReference<Map<String, ProtocolModel>>() {};
+        JsonNode jsonNode = objectMapper.readTree(json);
 
-        Map<String, ProtocolModel> map = objectMapper.readValue(jsonSubstring, typeReference);
-        List<ProtocolModel> protocolModels = new ArrayList<>(map.values());
+        Iterator<String> keys = jsonNode.fieldNames();
+
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JsonNode protocolNode = jsonNode.get(key);
+
+            ProtocolModel protocolModel = new ProtocolModel();
+            protocolModel.setProtocol(key);
+            protocolModel.setDownload(protocolNode.get("download").asDouble());
+            protocolModel.setUpload(protocolNode.get("upload").asDouble());
+            protocolModel.setTotal(protocolNode.get("total").asDouble());
+
+            protocolModels.add(protocolModel);
+        }
 
         return protocolModels;
     }

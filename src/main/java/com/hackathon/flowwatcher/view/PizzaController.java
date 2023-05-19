@@ -27,10 +27,10 @@ import java.util.ResourceBundle;
 
 public class PizzaController implements TrafficUIListener, Initializable{
     private static ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Apples", 2),
-            new PieChart.Data("Oranges", 25),
-            new PieChart.Data("Grapes", 50),
-            new PieChart.Data("Melons", 3));
+            new PieChart.Data("MSEdge.exe", 483.00),
+            new PieChart.Data("Teams.exe", 388.52),
+            new PieChart.Data("Chrome.exe", 122.00),
+            new PieChart.Data("Code.exe", 55.13));
 
     @FXML
     private PieChart pieChart;

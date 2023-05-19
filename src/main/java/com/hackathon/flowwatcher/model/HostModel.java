@@ -2,12 +2,14 @@ package com.hackathon.flowwatcher.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.bson.Document;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 // Class for generating objects with data usage
@@ -32,17 +34,25 @@ public class HostModel {
 
     // Creating Object List
     public static List<HostModel> getHostModelsFromJson(String json) throws IOException {
-        // Removing unwanted text
-        int jsonStart = json.indexOf('{');
-        int jsonEnd = json.lastIndexOf('}') + 1;
-        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+        List<HostModel> hostModels = new ArrayList<>();
 
-        // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<Map<String, HostModel>> typeReference = new TypeReference<Map<String, HostModel>>() {};
+        JsonNode jsonNode = objectMapper.readTree(json);
 
-        Map<String, HostModel> map = objectMapper.readValue(jsonSubstring, typeReference);
-        List<HostModel> hostModels = new ArrayList<>(map.values());
+        Iterator<String> keys = jsonNode.fieldNames();
+
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JsonNode hostNode = jsonNode.get(key);
+
+            HostModel hostModel = new HostModel();
+            hostModel.setSource(hostNode.get("name").asText());
+            hostModel.setDownload(hostNode.get("download").asDouble());
+            hostModel.setUpload(hostNode.get("upload").asDouble());
+            hostModel.setTotal(hostNode.get("total").asDouble());
+
+            hostModels.add(hostModel);
+        }
 
         return hostModels;
     }
