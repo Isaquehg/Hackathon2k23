@@ -1,21 +1,15 @@
 package com.hackathon.flowwatcher.view;
 
 import com.hackathon.flowwatcher.Application;
-import com.hackathon.flowwatcher.controller.TrafficController;
-import com.hackathon.flowwatcher.model.AppModel;
-import com.hackathon.flowwatcher.model.HostModel;
-import com.hackathon.flowwatcher.model.ProtocolModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
