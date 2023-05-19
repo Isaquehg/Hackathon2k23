@@ -6,6 +6,7 @@ import org.bson.Document;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +35,13 @@ public class AppModel {
     // Creating Object List
     public static List<AppModel> getAppModelsFromJson(String json) throws IOException {
         // Removing unwanted text
-        int jsonStart = json.indexOf('{');
-        int jsonEnd = json.lastIndexOf('}') + 1;
-        String jsonSubstring = json.substring(jsonStart, jsonEnd);
+        json = json.replace("b'", "");
 
         // Processing JSON
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<Map<String, AppModel>> typeReference = new TypeReference<Map<String, AppModel>>() {};
 
-        Map<String, AppModel> map = objectMapper.readValue(jsonSubstring, typeReference);
+        Map<String, AppModel> map = objectMapper.readValue(json, typeReference);
         List<AppModel> appModels = new ArrayList<>(map.values());
 
         return appModels;

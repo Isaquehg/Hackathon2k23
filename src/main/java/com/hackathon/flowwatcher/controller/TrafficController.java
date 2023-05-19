@@ -81,9 +81,11 @@ public class TrafficController {
                         Platform.runLater(() ->{
                             uiListener.onAppTrafficUpdated(appModelList);
                         });
+                        System.out.println("heloooo");
                     }
                     // Protocol
                     else if ((socket.getPort() == 50001) && UISync.PROTOCOL) {
+                        System.out.println("heloooo 22");
                         // Saving to DB
                         model.updateProtocolTraffic(data);
                         // Convert JSON to Object
@@ -95,13 +97,14 @@ public class TrafficController {
                     }
                     //Host
                     else if ((socket.getPort() == 50002) && UISync.HOST) {
+                        System.out.println("heloooo 333");
                         // Saving to DB
                         model.updateHostTraffic(data);
                         // Convert JSON to objects
                         List<HostModel> hostModelList = HostModel.getHostModelsFromJson(data);
                         // Send data to UI for real-time monitoring
                         Platform.runLater(() ->{
-                           uiListener.onHostTrafficUpdated(hostModelList);
+                            uiListener.onHostTrafficUpdated(hostModelList);
                         });
                     }
                 }
