@@ -101,6 +101,7 @@ public class ColumnController implements Initializable {
                 // Protocol
             } else if (mode.getValue().equals("Protocol")) {
                 // Cleaning previous data
+                stakedBarChart.getData().clear();
                 
                 dataUsage.setText("PROTOCOL USAGE");
 
@@ -115,7 +116,9 @@ public class ColumnController implements Initializable {
 
                 if (selectedDataType.equals("Download")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
+                    stakedBarChart.setTitle("MB");
+
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("https", 16.5));
                             series1.getData().add(new XYChart.Data<>("mdbs_daemon", 0.14));
@@ -126,7 +129,8 @@ public class ColumnController implements Initializable {
 
                 if (selectedDataType.equals("Upload")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
+                    stakedBarChart.setTitle("MB");
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("https", 14.5));
@@ -139,7 +143,8 @@ public class ColumnController implements Initializable {
                 dataUsage.setText("HOST USAGE");
                 if (selectedDataType.equals("Total")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
+                    stakedBarChart.setTitle("MB");
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("host", 687));
@@ -151,7 +156,8 @@ public class ColumnController implements Initializable {
                 }
                 if (selectedDataType.equals("Download")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
+                    stakedBarChart.setTitle("MB");
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("host", 321));
                             series1.getData().add(new XYChart.Data<>("host", 200));
@@ -162,7 +168,7 @@ public class ColumnController implements Initializable {
                 }
                 if (selectedDataType.equals("Upload")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("host", 222));
@@ -181,7 +187,7 @@ public class ColumnController implements Initializable {
                 dataUsage.setText("APP USAGE");
                 if (selectedDataType.equals("Total")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
                             series1.getData().add(new XYChart.Data<>("Code", 25));
@@ -192,7 +198,7 @@ public class ColumnController implements Initializable {
                 }
                 if (selectedDataType.equals("Download")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
@@ -204,7 +210,7 @@ public class ColumnController implements Initializable {
                 }
                 if (selectedDataType.equals("Upload")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
                             series1.getData().add(new XYChart.Data<>("Code", 25));
@@ -219,7 +225,7 @@ public class ColumnController implements Initializable {
                 dataUsage.setText("PROTOCOL USAGE");
                 if (selectedDataType.equals("Total")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("https", 333));
                             series1.getData().add(new XYChart.Data<>("mdbs_daemon", 25));
@@ -228,7 +234,7 @@ public class ColumnController implements Initializable {
                     stakedBarChart.getData().addAll(series1);
                 } else if (selectedDataType.equals("Download")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("https", 100));
@@ -239,7 +245,7 @@ public class ColumnController implements Initializable {
                 } else if (selectedDataType.equals("Upload")) {
                     dataUsage.setText("HOST USAGE");
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
                 }
                 XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                         series1.getData().add(new XYChart.Data<>("https", 221));
@@ -252,7 +258,7 @@ public class ColumnController implements Initializable {
                 if (selectedDataType.equals("Total")) {
                     dataUsage.setText("HOST USAGE");
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
@@ -264,7 +270,7 @@ public class ColumnController implements Initializable {
                 } else if (mode.getValue().equals("Host") && selectedDataType.equals("Download")) {
                     dataUsage.setText("HOST USAGE");
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
@@ -275,7 +281,7 @@ public class ColumnController implements Initializable {
                     stakedBarChart.getData().addAll(series1);
                 } else if (selectedDataType.equals("Upload")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
@@ -293,7 +299,7 @@ public class ColumnController implements Initializable {
                 dataUsage.setText("APP USAGE");
                 if (dataType.getValue().equals("Total")) {
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 238));
                             series1.getData().add(new XYChart.Data<>("Code", 88.5));
@@ -305,7 +311,7 @@ public class ColumnController implements Initializable {
                 if (dataType.getValue().equals("Download")) {
                     dataUsage.setText("APP USAGE");
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));
@@ -318,7 +324,7 @@ public class ColumnController implements Initializable {
                 if (dataType.getValue().equals("Upload")) {
                     dataUsage.setText("APP USAGE");
                     // Cleaning previous data
-                    ;
+                    stakedBarChart.getData().clear();
 
                     XYChart.Series<String, Number> series1 = new XYChart.Series<>();
                             series1.getData().add(new XYChart.Data<>("MSTeams", 30.78));

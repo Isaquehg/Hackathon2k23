@@ -16,7 +16,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="1364.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackathon.flowwatcher.view.ColumnController">
    <children>
       <Separator layoutX="5.0" layoutY="66.0" prefHeight="8.0" prefWidth="1360.0" />
-      <StackedBarChart fx:id="stakedBarChart" layoutX="-6.0" layoutY="135.0" prefHeight="630.0" prefWidth="1372.0" titleSide="BOTTOM">
+      <StackedBarChart fx:id="stakedBarChart" layoutX="-6.0" layoutY="135.0" prefHeight="630.0" prefWidth="1372.0" style="-fx-background-color: white;" titleSide="BOTTOM">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
